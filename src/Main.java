@@ -20,6 +20,14 @@ public class Main {
         System.out.print("Enter the address: ");
         String address = inputaddress.nextLine();
 
+        Scanner inputcity = new Scanner(System.in);
+        System.out.print("Enter the city: ");
+        String city = inputcity.nextLine();
+
+        Scanner inputcountry = new Scanner(System.in);
+        System.out.print("Enter the country: ");
+        String country = inputcountry.nextLine();
+
         Scanner inputpostal = new Scanner(System.in);
         System.out.print("Enter the postal code: ");
         String postal_code = inputpostal.nextLine();
@@ -28,7 +36,7 @@ public class Main {
         System.out.print("Enter the amenities: ");
         String amenities = inputamenities.nextLine();
 
-        InsertListing myListing = new InsertListing(type, latitude, longtitude, address, postal_code, amenities);
+        InsertListing myListing = new InsertListing(type, latitude, longtitude, address, city, country, postal_code, amenities);
         boolean result = myListing.createListing();
 
         if(!result){
