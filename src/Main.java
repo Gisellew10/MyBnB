@@ -36,6 +36,7 @@ public class Main {
         System.out.print("Enter the amenities: ");
         String amenities = inputamenities.nextLine();
 
+
         InsertListing myListing = new InsertListing(type, latitude, longtitude, address, city, country, postal_code, amenities);
         boolean result = myListing.createListing();
 

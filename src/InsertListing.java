@@ -1,7 +1,7 @@
 import java.sql.*;
 
 public class InsertListing{
-    private static final String CONNECTION = "jdbc:mysql://localhost:3306/mydb"; 
+    private static final String CONNECTION = "jdbc:mysql://localhost:3306/mybnb"; 
 
     private String type;
     private float latitude;
@@ -29,7 +29,7 @@ public class InsertListing{
         final String PASS = "giselle";
         try{
             Connection con = null;
-            String sql = "INSERT INTO Listings (type) VALUES (?)";
+            String sql = "INSERT INTO Listings (type, latitude, longtitude, address, city, country, postal_code, amenities) VALUES (?,?,?,?,?,?,?,?)";
             
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);
