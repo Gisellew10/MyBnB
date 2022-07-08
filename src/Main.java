@@ -1,37 +1,41 @@
 import java.sql.*;
+import java.util.Scanner;
 
 public class Main {
-    private static final String CONNECTION = "jdbc:mysql://localhost:3306/mydb"; 
     public static void main(String[] args) throws ClassNotFoundException
     {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        final String USER = "root";
-        final String PASS = "giselle";
-        System.out.println("Connecting to database...");
+        Scanner inputtype = new Scanner(System.in);
+        System.out.print("Enter the type: ");
+        String type = inputtype.nextLine();
 
-        try
-        {
-            Connection con=DriverManager.getConnection(CONNECTION,USER,PASS);
-            System.out.println("Successsfully connected to MySQL!");
+        Scanner inputlatitude = new Scanner(System.in);
+        System.out.print("Enter the latitude: ");
+        float latitude = inputtype.nextFloat();
 
-            Statement stmt = con.createStatement();
-            String sql = "SELECT * FROM Student;"; // need to change later
-            ResultSet rs = stmt.executeQuery(sql);
-            
-            int count = 0;
+        Scanner inputlongtitude = new Scanner(System.in);
+        System.out.print("Enter the longtitude: ");
+        float longtitude = inputlongtitude.nextFloat();
 
-            while(rs.next())
-            {
-                String firstName = rs.getString(2);
-                String surName = rs.getString(3);
-                count++;
-                System.out.println("Student" + count + ":" + firstName + " " + surName);
-            }
-            con.close();
+        Scanner inputaddress = new Scanner(System.in);
+        System.out.print("Enter the address: ");
+        String address = inputaddress.nextLine();
+
+        Scanner inputpostal = new Scanner(System.in);
+        System.out.print("Enter the postal code: ");
+        String postal_code = inputpostal.nextLine();
+
+        Scanner inputamenities = new Scanner(System.in);
+        System.out.print("Enter the amenities: ");
+        String amenities = inputamenities.nextLine();
+
+        InsertListing myListing = new InsertListing(type, latitude, longtitude, address, postal_code, amenities);
+        boolean result = myListing.createListing();
+
+        if(!result){
+            System.out.println("Listing was successfully added!");
+        }else{
+            return;
         }
-        catch(Exception e)
-        {
-            System.out.print(e);
-        }
+
     }
 }
