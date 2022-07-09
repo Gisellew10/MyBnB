@@ -1,4 +1,3 @@
-import java.sql.*;
 import java.util.Scanner;
 
 public class ListingMain {
@@ -44,6 +43,17 @@ public class ListingMain {
         InsertListing myListing = new InsertListing(HostID, type, latitude, longtitude, address, city, country, postal_code, amenities);
         boolean result = myListing.createListing();
 
+        inputHostID.close();
+        inputtype.close();
+        inputaddress.close();
+        inputlatitude.close();
+        inputlongtitude.close();
+        inputcity.close();
+        inputcountry.close();
+        inputpostal.close();
+        inputamenities.close();
+
+        
         if(!result){
             System.out.println("Listing was successfully added!");
         }else{
