@@ -18,14 +18,15 @@ public class Retrieve {
 
             if(rs.next()){
                 System.out.println("The listing ID is: " + rs.getInt(1));
-                System.out.println("The type of listing is: " + rs.getString(2));
-                System.out.println("Its latitude is: " + rs.getFloat(3));
-                System.out.println("Its longtitude is: " + rs.getFloat(4));
-                System.out.println("Its address is: " + rs.getString(5));
-                System.out.println("The city of listing is: " + rs.getString(6));
-                System.out.println("The country of listing is: " + rs.getString(7));
-                System.out.println("Its postal code is: " + rs.getString(8));
-                System.out.println("The amenities it offers: " + rs.getString(9));
+                System.out.println("The host ID is: " + rs.getInt(2));
+                System.out.println("The type of listing is: " + rs.getString(3));
+                System.out.println("Its latitude is: " + rs.getFloat(4));
+                System.out.println("Its longtitude is: " + rs.getFloat(5));
+                System.out.println("Its address is: " + rs.getString(6));
+                System.out.println("The city of listing is: " + rs.getString(7));
+                System.out.println("The country of listing is: " + rs.getString(8));
+                System.out.println("Its postal code is: " + rs.getString(9));
+                System.out.println("The amenities it offers: " + rs.getString(10));
                 System.out.println();
             }
             rs.close();
