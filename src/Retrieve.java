@@ -1,7 +1,9 @@
 import java.sql.*;
+
 public class Retrieve {
     private static final String CONNECTION = "jdbc:mysql://localhost:3306/mybnb"; 
-    public static void main(String[] args) throws ClassNotFoundException{
+
+    public void ShowListings()throws ClassNotFoundException{
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         final String USER = "root";
