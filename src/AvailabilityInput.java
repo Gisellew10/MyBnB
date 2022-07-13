@@ -13,7 +13,7 @@ public class AvailabilityInput {
         String date = inputdate.nextLine();
 
         Scanner inputavailability= new Scanner(System.in);
-        System.out.print("Enter the availability (available/not available): ");
+        System.out.print("Enter the availability (available/unavailable): ");
         String availability  = inputavailability.nextLine();
 
         Scanner inputprice = new Scanner(System.in);

@@ -31,7 +31,7 @@ public class InsertListing{
         final String PASS = "giselle";
         try{
             Connection con = null;
-            String sql = "INSERT INTO Listings (HostID, type, latitude, longtitude, address, city, country, postal_code, amenities) VALUES (?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Listings (HostID, type, latitude, longtitude, address, city, country, postal_code, amenities) VALUES (?,?,?,?,?,?,?,?,?)";
             
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);

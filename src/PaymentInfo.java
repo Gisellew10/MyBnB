@@ -24,7 +24,7 @@ public class PaymentInfo{
         final String PASS = "giselle";
         try{
             Connection con = null;
-            String sql = "INSERT INTO Calendar (UserID, CreditCard_Num, ExpDate, Postal_Code, CVC) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO PaymentInfo (UserID, CreditCard_Num, ExpDate, Postal_Code, CVC) VALUES (?,?,?,?,?)";
             
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);

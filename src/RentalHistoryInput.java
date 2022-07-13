@@ -42,17 +42,37 @@ public class RentalHistoryInput{
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
 
-            String address = rs.getString(1);
-            String city = rs.getString(2);
-            String country = rs.getString(3);
-            float price = rs.getFloat(4);
+            String address = null;
+            String city = null;
+            String country = null;
+            float price = 0;
+            boolean result = true;
+
+            if(rs.next()){
+                address = rs.getString(1);
+                city = rs.getString(2);
+                country = rs.getString(3);
+                price = rs.getFloat(4);
+
+
+                RentalHistory myRentalHistory= new RentalHistory(LID, UserID, date, address, city, country, price);
+                result = myRentalHistory.createRentalHistory();
+            }
 
             //need to have 'check' to check the listing is available
 
-            RentalHistory myRentalHistory= new RentalHistory(LID, UserID, date, address, city, country, price);
-            boolean result = myRentalHistory.createRentalHistory();
 
-            //need to update Availability
+            //update Availability
+
+            String update = "UPDATE Availability SET availability = 'unavailable' WHERE date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'";
+
+
+            Connection con2 = null;
+            con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt2 = con2.createStatement();
+            stmt2.executeUpdate(update);
+
+
             if(!result){
                 System.out.println("Booking was successfully added!");
             }else{
