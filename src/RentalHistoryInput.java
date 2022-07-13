@@ -54,12 +54,12 @@ public class RentalHistoryInput{
                 country = rs.getString(3);
                 price = rs.getFloat(4);
 
+                //need to have 'check' to check the listing is available
 
                 RentalHistory myRentalHistory= new RentalHistory(LID, UserID, date, address, city, country, price);
                 result = myRentalHistory.createRentalHistory();
             }
 
-            //need to have 'check' to check the listing is available
 
 
             //update Availability

@@ -12,8 +12,11 @@ public class Main {
         // Delete delete = new Delete();
         // delete.DeleteUser();
 
-        RentalHistoryInput rental_history = new RentalHistoryInput();
-        rental_history.getRentingInfo();
+        // RentalHistoryInput rental_history = new RentalHistoryInput();
+        // rental_history.getRentingInfo();
+
+        CommentInput comment = new CommentInput();
+        comment.getCommentInfo();
 
 
 
