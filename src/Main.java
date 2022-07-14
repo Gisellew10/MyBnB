@@ -9,14 +9,16 @@ public class Main {
         // AvailabilityInput availability = new AvailabilityInput();
         // availability.getAvailabilityInfo();
 
-        // Delete delete = new Delete();
+        Delete delete = new Delete();
         // delete.DeleteUser();
 
         // RentalHistoryInput rental_history = new RentalHistoryInput();
         // rental_history.getRentingInfo();
 
-        CommentInput comment = new CommentInput();
-        comment.getCommentInfo();
+        // CommentInput comment = new CommentInput();
+        // comment.getCommentInfo();
+
+        delete.CancelBooking();
 
 
 

@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.sql.*;
+import java.util.UUID;
 
 public class RentalHistoryInput{
 
@@ -54,9 +55,13 @@ public class RentalHistoryInput{
                 country = rs.getString(3);
                 price = rs.getFloat(4);
 
+                String Booking_ID;
+                UUID uuid = UUID.randomUUID();
+                Booking_ID = "Booking"+ "-" + uuid;
+
                 //need to have 'check' to check the listing is available
 
-                RentalHistory myRentalHistory= new RentalHistory(LID, UserID, date, address, city, country, price);
+                RentalHistory myRentalHistory= new RentalHistory(Booking_ID, LID, UserID, date, address, city, country, price, start_date, end_date);
                 result = myRentalHistory.createRentalHistory();
             }
 
