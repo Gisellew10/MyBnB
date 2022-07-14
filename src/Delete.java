@@ -38,22 +38,33 @@ public class Delete {
 
 
     public boolean CancelBooking(){
+
+        Scanner inputUserID = new Scanner(System.in);
+        System.out.print("Enter your User ID ");
+        String UserID = inputUserID.nextLine();
+
         Scanner inputBooking = new Scanner(System.in);
         System.out.print("Enter the Booking ID that you would like to cancel: ");
         String Booking_ID = inputBooking.nextLine();
+
+        Scanner inputdate = new Scanner(System.in);
+        System.out.print("Enter today's date: ");
+        String cancellation_date = inputdate.nextLine();
 
         try{
 
             Connection con = null;
             ResultSet rs = null;
-            String query = "SELECT start_date, end_date FROM RentalHistory WHERE Booking_ID = '" + Booking_ID + "'";
+            String query = "SELECT start_date, end_date, LID FROM RentalHistory WHERE Booking_ID = '" + Booking_ID + "'";
 
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
+
             if(rs.next()){
             String start_date = rs.getString(1);
             String end_date = rs.getString(2);
+            int LID = rs.getInt(3);
 
             Connection con2 = null;
             String sql = "DELETE FROM RentalHistory WHERE Booking_ID = '" + Booking_ID +"'";
@@ -67,6 +78,9 @@ public class Delete {
             con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con3.createStatement();
             stmt2.executeUpdate(update);
+
+            Cancellation mycancellation = new Cancellation(Booking_ID, LID, UserID, cancellation_date, start_date, end_date);
+            boolean result = mycancellation.recordCancellation();
 
             System.out.println("Booking was successfully canceled!");
 
@@ -85,6 +99,52 @@ public class Delete {
         }
         return success;
 
+    }
+
+
+    public boolean RemoveListing(){
+        Scanner inputLID = new Scanner(System.in);
+        System.out.print("Enter the Listing ID that you would like to remove: ");
+        String LID = inputLID.nextLine();
+
+        try{
+            Connection con = null;
+            String sql = "DELETE FROM Listings WHERE LID = '" + LID +"'";
+            
+            con = DriverManager.getConnection(CONNECTION,USER,PASS);
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            Connection con2 = null;
+            String sql2 = "DELETE FROM RentalHistory WHERE LID = '" + LID +"'";
+            
+            con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            PreparedStatement ps2 = con2.prepareStatement(sql2);
+            ps2.execute();
+
+            Connection con3 = null;
+            String sql3 = "DELETE FROM Availability WHERE LID = '" + LID +"'";
+            
+            con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            PreparedStatement ps3 = con3.prepareStatement(sql3);
+            ps3.execute();
+
+
+            System.out.println("Listing was successfully removed!");
+
+            success = ps.execute();
+
+            ps.close();
+            con.close();
+            con2.close();
+            con3.close();
+            inputLID.close();
+
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return success;
     }
     
 }

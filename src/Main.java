@@ -18,7 +18,9 @@ public class Main {
         // CommentInput comment = new CommentInput();
         // comment.getCommentInfo();
 
-        delete.CancelBooking();
+        // delete.CancelBooking();
+
+        delete.RemoveListing();
 
 
 
