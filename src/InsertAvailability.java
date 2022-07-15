@@ -5,12 +5,14 @@ public class InsertAvailability{
     private static final String CONNECTION = "jdbc:mysql://localhost:3306/mybnb"; 
 
     private int LID;
+    private String HostID;
     private String date;
     private String availability;
-    private float price;
+    private double price;
     private boolean success;
 
-    public InsertAvailability(int LID, String date, String availability, float price){
+    public InsertAvailability(String HostID, int LID, String date, String availability, double price){
+        this.HostID = HostID;
         this.LID = LID;
         this.date = date;
         this.availability = availability;
@@ -22,16 +24,17 @@ public class InsertAvailability{
         final String PASS = "giselle";
         try{
             Connection con = null;
-            String sql = "INSERT INTO Availability (LID, date, availability, price) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO Availability (Host_ID, LID, date, availability, price) VALUES (?,?,?,?,?)";
             
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);
 
             con.setAutoCommit(false);
-            ps.setInt(1, this.LID);
-            ps.setString(2, this.date);
-            ps.setString(3, this.availability);
-            ps.setFloat(4, this.price);
+            ps.setString(1, this.HostID);
+            ps.setInt(2, this.LID);
+            ps.setString(3, this.date);
+            ps.setString(4, this.availability);
+            ps.setDouble(5, this.price);
 
             success = ps.execute();
 

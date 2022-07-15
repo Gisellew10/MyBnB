@@ -46,14 +46,14 @@ public class RentalHistoryInput{
             String address = null;
             String city = null;
             String country = null;
-            float price = 0;
+            double price = 0;
             boolean result = true;
 
             if(rs.next()){
                 address = rs.getString(1);
                 city = rs.getString(2);
                 country = rs.getString(3);
-                price = rs.getFloat(4);
+                price = rs.getDouble(4);
 
                 String Booking_ID;
                 UUID uuid = UUID.randomUUID();
