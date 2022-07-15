@@ -5,8 +5,8 @@ public class InsertListing{
 
     private String HostID;
     private String type;
-    private float latitude;
-    private float longtitude;
+    private double latitude;
+    private double longtitude;
     private String address;
     private String city;
     private String country;
@@ -14,7 +14,7 @@ public class InsertListing{
     private String amenities;
     private boolean success;
 
-    public InsertListing(String HostID, String type, float latitude, float longtitude, String address, String city, String country, String postal_code, String amenities){
+    public InsertListing(String HostID, String type, double latitude, double longtitude, String address, String city, String country, String postal_code, String amenities){
         this.HostID = HostID;
         this.type = type;
         this.latitude = latitude;
@@ -39,8 +39,8 @@ public class InsertListing{
             con.setAutoCommit(false);
             ps.setString(1, this.HostID);
             ps.setString(2, this.type);
-            ps.setFloat(3, this.latitude);
-            ps.setFloat(4, this.longtitude);
+            ps.setDouble(3, this.latitude);
+            ps.setDouble(4, this.longtitude);
             ps.setString(5, this.address);
             ps.setString(6, this.city);
             ps.setString(7, this.country);

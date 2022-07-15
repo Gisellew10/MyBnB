@@ -11,12 +11,12 @@ public class RentalHistory{
     private String address;
     private String city;
     private String country;
-    private float price;
+    private double price;
     private String start_date;
     private String end_date;
     private boolean success;
 
-    public RentalHistory(String Booking_ID, int LID, String UserID, String date, String address, String city, String country, float price, String start_date, String end_date){
+    public RentalHistory(String Booking_ID, int LID, String UserID, String date, String address, String city, String country, double price, String start_date, String end_date){
         this.Booking_ID = Booking_ID;
         this.LID = LID;
         this.UserID = UserID;
@@ -47,7 +47,7 @@ public class RentalHistory{
             ps.setString(5, this.city);
             ps.setString(6, this.country);
             ps.setString(7, this.date);
-            ps.setFloat(8, this.price);
+            ps.setDouble(8, this.price);
             ps.setString(9, this.start_date);
             ps.setString(10, this.end_date);
 

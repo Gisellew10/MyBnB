@@ -13,11 +13,11 @@ public class ListingInput {
 
         Scanner inputlatitude = new Scanner(System.in);
         System.out.print("Enter the latitude: ");
-        float latitude = inputtype.nextFloat();
+        double latitude = inputtype.nextDouble();
 
         Scanner inputlongtitude = new Scanner(System.in);
         System.out.print("Enter the longtitude: ");
-        float longtitude = inputlongtitude.nextFloat();
+        double longtitude = inputlongtitude.nextDouble();
 
         Scanner inputaddress = new Scanner(System.in);
         System.out.print("Enter the address: ");
