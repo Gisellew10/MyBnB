@@ -31,6 +31,7 @@ public class Retrieve {
                 System.out.println("The amenities it offers: " + rs.getString(10));
                 System.out.println();
             }
+            
             rs.close();
             con.close();
 
