@@ -23,15 +23,15 @@ public class RentalHistoryInput{
             int LID = inputLID.nextInt();
 
             Scanner inputstartdate= new Scanner(System.in);
-            System.out.print("Enter the start date of your renting: ");
+            System.out.print("Enter the start date of your renting(dd/mm/yyyy): ");
             String start_date= inputstartdate.nextLine();
 
             Scanner inputenddate = new Scanner(System.in);
-            System.out.print("Enter the end date of your renting: ");
+            System.out.print("Enter the end date of your renting(dd/mm/yyyy): ");
             String end_date = inputenddate.nextLine();
 
             Scanner inputdate = new Scanner(System.in);
-            System.out.print("Enter the current date: ");
+            System.out.print("Enter the current date(dd/mm/yyyy): ");
             String date = inputdate.nextLine();
 
             String query = "SELECT address, city, country, AVG(price) FROM Listings NATURAL JOIN Availability WHERE LID = '" + LID + "' GROUP BY address, city, country" ;
