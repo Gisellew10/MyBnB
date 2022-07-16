@@ -34,7 +34,7 @@ public class RentalHistoryInput{
             System.out.print("Enter the current date: ");
             String date = inputdate.nextLine();
 
-            String query = "SELECT address, city, country, price FROM Listings NATURAL JOIN Availability WHERE LID = '" + LID + "'";
+            String query = "SELECT address, city, country, AVG(price) FROM Listings NATURAL JOIN Availability WHERE LID = '" + LID + "' GROUP BY address, city, country" ;
 
 
             Connection con = null;

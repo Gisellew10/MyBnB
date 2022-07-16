@@ -30,7 +30,7 @@ public class Queries {
             
             Connection con4 = null;
             ResultSet rs4 = null;
-            String query = "SELECT LID, type, address, city, country, postal_code, amenities, (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + ")))))) AS distance_in_km FROM Listings WHERE (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + "))))))  < '" + distance + "'" + "ORDER BY distance_in_km ASC";
+            String query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + ")))))) AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + "))))))  < '" + distance + "'" + " GROUP BY LID, type, address, city, country, postal_code, amenities ORDER BY distance_in_km ASC";
 
             con4 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt4 = con4.createStatement();
@@ -42,6 +42,7 @@ public class Queries {
                 System.out.println("Its address is: " + rs4.getString(3) + ", " + rs4.getString(4) + ", " + rs4.getString(5));
                 System.out.println("Its postal code is: " + rs4.getString(6));
                 System.out.println("The amenities it offers: " + rs4.getString(7));
+                System.out.println("The average price of listing is: " + rs4.getString(8));
                 System.out.println();
             }
 
