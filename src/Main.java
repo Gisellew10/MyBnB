@@ -25,11 +25,11 @@ public class Main {
         // Queries query = new Queries();
         // query.SearchByLatAndLon();
 
-        // Queries query = new Queries();
-        // query.SearchByPostalCode();
-
         Queries query = new Queries();
-        query.SearchByAddress();
+        query.SearchByPostalCode();
+
+        // Queries query = new Queries();
+        // query.SearchByAddress();
 
 
 
