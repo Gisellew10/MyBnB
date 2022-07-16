@@ -22,8 +22,11 @@ public class Main {
 
         // delete.RemoveListing();
 
+        // Queries query = new Queries();
+        // query.SearchByLatAndLon();
+
         Queries query = new Queries();
-        query.SearchByLatAndLon();
+        query.SearchByPostalCode();
 
 
 
