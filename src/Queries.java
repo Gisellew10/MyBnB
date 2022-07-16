@@ -28,15 +28,43 @@ public class Queries {
             System.out.print("Would you like to rank the listings by price (Yes/No): ");
             String RankByPrice = inputRankByPrice.nextLine();
 
-            String query;
-
+            String Rank = null;
             if(RankByPrice.equals("Yes")){
                 Scanner inputRank = new Scanner(System.in);
                 System.out.print("Rank in ascending(ASC) or descending(DESC): ");
-                String Rank = inputRank.nextLine();
+                Rank = inputRank.nextLine();
+            }
+
+            Scanner inputAvailability = new Scanner(System.in);
+            System.out.print("Would you like to filter the listings by your preferred date range (Yes/No): ");
+            String availability = inputAvailability.nextLine();
+
+            String start_date = null;
+            String end_date = null;
+
+            if(availability.equals("Yes")){
+                Scanner inputstartdate= new Scanner(System.in);
+                System.out.print("Enter the start date (dd/mm/yyyy): ");
+                start_date = inputstartdate.nextLine();
+    
+                Scanner inputenddate = new Scanner(System.in);
+                System.out.print("Enter the end date(dd/mm/yyyy): ");
+                end_date = inputenddate.nextLine();
+            }
+
+            String query;
+
+            if(RankByPrice.equals("Yes") && availability.equals("No")){
 
                 query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + ")))))) AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + "))))))  < '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+            }if(RankByPrice.equals("Yes") && availability.equals("Yes")){
+
+                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + ")))))) AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + ")))))) < '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+            }else if(RankByPrice.equals("No") && availability.equals("Yes")){
+
+                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + ")))))) AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + "))))))  < '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) ";
             }else{
+                
                 query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + ")))))) AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE (111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(Listings.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(Listings.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(Listings.latitude)) * SIN(RADIANS('" +latitude + "'" + "))))))  < '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY distance_in_km ASC";
             }
 
@@ -124,7 +152,7 @@ public class Queries {
                 latitude = rs.getDouble(9);
                 longtitude = rs.getDouble(10);
             }
-            
+
             String query;
 
             if(RankByPrice.equals("Yes") && availability.equals("No")){

@@ -22,11 +22,11 @@ public class Main {
 
         // delete.RemoveListing();
 
-        // Queries query = new Queries();
-        // query.SearchByLatAndLon();
-
         Queries query = new Queries();
-        query.SearchByPostalCode();
+        query.SearchByLatAndLon();
+
+        // Queries query = new Queries();
+        // query.SearchByPostalCode();
 
         // Queries query = new Queries();
         // query.SearchByAddress();
