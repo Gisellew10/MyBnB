@@ -174,4 +174,73 @@ public class Reports {
             e.printStackTrace();
         }
     }
+
+
+
+    public void IdentifyCommercialHosts() throws ClassNotFoundException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        final String USER = "root";
+        final String PASS = "giselle";
+
+        try{
+            Connection con = null;
+            ResultSet rs = null;
+            String query = "SELECT UserID, first_name, last_name, city, country FROM Listings L1 JOIN Users WHERE UserID = HostID GROUP BY UserID, city, country HAVING (count(*) / (SELECT COUNT(LID) FROM Listings L2 WHERE L1.city = L2.city AND L1.country = L2.country))  > 0.1 ";
+
+            con = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+
+
+            System.out.println("---Hosts That Have A Number Of Listings That Is More Than 10% Of The Number Of Listings In That City And Country---");
+            System.out.println();
+
+            while(rs.next()){
+                System.out.println("Host ID: " + rs.getString(1) + "   " + "Host Name: " + rs.getString(2) + " " +rs.getString(3) + "   " + "City: " + rs.getString(4) + "   " + "Country: " + rs.getString(5)) ;
+                System.out.println();
+            }
+
+
+            rs.close();
+            con.close();
+
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void RankTheRenters() throws ClassNotFoundException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        final String USER = "root";
+        final String PASS = "giselle";
+
+        try{
+            Connection con = null;
+            ResultSet rs = null;
+            String query = "SELECT UserID, first_name, last_name, city, country, COUNT(LID) FROM Listings JOIN Users WHERE UserID = HostID GROUP BY UserID, first_name, last_name, city, country ORDER BY COUNT(LID) DESC ";
+
+            con = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+
+
+            System.out.println("---Rank The Hosts Report---");
+            System.out.println();
+
+            while(rs.next()){
+                System.out.println("Host ID: " + rs.getString(1) + "   " + "Host Name: " + rs.getString(2) + " " +rs.getString(3) + "   " + "City: " + rs.getString(4) + "   " + "Country: " + rs.getString(5) + "   " + "Number of listings: " + rs.getInt(6)) ;
+                System.out.println();
+            }
+
+
+            rs.close();
+            con.close();
+
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
