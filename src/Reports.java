@@ -35,7 +35,7 @@ public class Reports {
             System.out.println();
 
             while(rs.next()){
-                System.out.println("City: " + rs.getString(1) + "   " + "Total number of bookings: " + rs.getString(2));
+                System.out.println("City: " + rs.getString(1) + "   " + "Total number of bookings: " + rs.getInt(2));
                 System.out.println();
             }
 
@@ -53,7 +53,7 @@ public class Reports {
             System.out.println();
 
             while(rs2.next()){
-                System.out.println("Zip Code: " + rs2.getString(1) + "   " + "City: " + rs2.getString(2) + "   " + "Total number of bookings: " + rs2.getString(3));
+                System.out.println("Zip Code: " + rs2.getString(1) + "   " + "City: " + rs2.getString(2) + "   " + "Total number of bookings: " + rs2.getInt(3));
                 System.out.println();
             }
 
@@ -89,7 +89,7 @@ public class Reports {
             System.out.println();
 
             while(rs.next()){
-                System.out.println("Country: " + rs.getString(1) + "   " + "Total number of listings: " + rs.getString(2));
+                System.out.println("Country: " + rs.getString(1) + "   " + "Total number of listings: " + rs.getInt(2));
                 System.out.println();
             }
             
@@ -107,7 +107,7 @@ public class Reports {
             System.out.println();
 
             while(rs2.next()){
-                System.out.println("City: " + rs2.getString(1) + "   "  + "Country: " + rs2.getString(2) + "   " + "Total number of listings: " + rs2.getString(3));
+                System.out.println("City: " + rs2.getString(1) + "   "  + "Country: " + rs2.getString(2) + "   " + "Total number of listings: " + rs2.getInt(3));
                 System.out.println();
             }
 
@@ -124,7 +124,7 @@ public class Reports {
             System.out.println();
 
             while(rs3.next()){
-                System.out.println("City: " + rs3.getString(1) + "   " + "Country: " + rs3.getString(2) + "   " +  "Postal Code: " + rs3.getString(3) + "   "  + "Total number of listings: " + rs3.getString(4));
+                System.out.println("City: " + rs3.getString(1) + "   " + "Country: " + rs3.getString(2) + "   " +  "Postal Code: " + rs3.getString(3) + "   "  + "Total number of listings: " + rs3.getInt(4));
                 System.out.println();
             }
 
@@ -134,6 +134,41 @@ public class Reports {
             
             rs2.close();
             con2.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public void RankTheHosts() throws ClassNotFoundException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        final String USER = "root";
+        final String PASS = "giselle";
+
+        try{
+            Connection con = null;
+            ResultSet rs = null;
+            String query = "SELECT UserID, first_name, last_name, city, country, COUNT(LID) FROM Listings JOIN Users WHERE UserID = HostID GROUP BY UserID, first_name, last_name, city, country ORDER BY COUNT(LID) DESC ";
+
+            con = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+
+
+            System.out.println("---Rank The Hosts Report---");
+            System.out.println();
+
+            while(rs.next()){
+                System.out.println("Host ID: " + rs.getString(1) + "   " + "Host Name: " + rs.getString(2) + " " +rs.getString(3) + "   " + "City: " + rs.getString(4) + "   " + "Country: " + rs.getString(5) + "   " + "Number of listings: " + rs.getInt(6)) ;
+                System.out.println();
+            }
+
+
+            rs.close();
+            con.close();
+
         }
         catch(SQLException e){
             e.printStackTrace();

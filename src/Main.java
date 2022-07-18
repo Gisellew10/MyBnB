@@ -34,8 +34,11 @@ public class Main {
         // Reports report = new Reports();
         // report.TotalBookingsReport();
         
+        // Reports report = new Reports();
+        // report.TotalListingsReport();
+
         Reports report = new Reports();
-        report.TotalListingsReport();
+        report.RankTheHosts();
 
 
 
