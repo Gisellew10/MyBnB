@@ -31,8 +31,11 @@ public class Main {
         // Queries query = new Queries();
         // query.SearchByAddress();
 
+        // Reports report = new Reports();
+        // report.TotalBookingsReport();
+        
         Reports report = new Reports();
-        report.TotalBookingsReport();
+        report.TotalListingsReport();
 
 
 

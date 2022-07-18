@@ -32,12 +32,13 @@ public class Reports {
 
 
             System.out.println("---Total Number Of Bookings In A Specific Date Range By City Report---");
+            System.out.println();
 
             while(rs.next()){
                 System.out.println("City: " + rs.getString(1) + "   " + "Total number of bookings: " + rs.getString(2));
                 System.out.println();
             }
-            
+
 
             Connection con2 = null;
             ResultSet rs2 = null;
@@ -49,9 +50,81 @@ public class Reports {
             
 
             System.out.println("---Total Number Of Bookings In A Specific Date Range By Zip Code Within A City Report---");
+            System.out.println();
 
             while(rs2.next()){
                 System.out.println("Zip Code: " + rs2.getString(1) + "   " + "City: " + rs2.getString(2) + "   " + "Total number of bookings: " + rs2.getString(3));
+                System.out.println();
+            }
+
+            rs.close();
+            con.close();
+
+            
+            rs2.close();
+            con2.close();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void TotalListingsReport() throws ClassNotFoundException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        final String USER = "root";
+        final String PASS = "giselle";
+
+        try{
+            Connection con = null;
+            ResultSet rs = null;
+            String query = "SELECT country, COUNT(LID) FROM Listings GROUP BY country";
+
+            con = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+
+
+            System.out.println("---Total Number Of Listings Per Country Report---");
+            System.out.println();
+
+            while(rs.next()){
+                System.out.println("Country: " + rs.getString(1) + "   " + "Total number of listings: " + rs.getString(2));
+                System.out.println();
+            }
+            
+
+            Connection con2 = null;
+            ResultSet rs2 = null;
+            String query2 = "SELECT city, country, COUNT(LID) FROM Listings GROUP BY city,country";
+
+            con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt2 = con2.createStatement();
+            rs2 = stmt2.executeQuery(query2);
+            
+
+            System.out.println("---Total Number Of Listings Per Country and City Report---");
+            System.out.println();
+
+            while(rs2.next()){
+                System.out.println("City: " + rs2.getString(1) + "   "  + "Country: " + rs2.getString(2) + "   " + "Total number of listings: " + rs2.getString(3));
+                System.out.println();
+            }
+
+            Connection con3 = null;
+            ResultSet rs3 = null;
+            String query3 = "SELECT city, country, postal_code, COUNT(LID) FROM Listings GROUP BY city,country, postal_code";
+
+            con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt3 = con3.createStatement();
+            rs3 = stmt3.executeQuery(query3);
+            
+
+            System.out.println("---Total Number Of Listings Per Country, City, And Postal Code Report---");
+            System.out.println();
+
+            while(rs3.next()){
+                System.out.println("City: " + rs3.getString(1) + "   " + "Country: " + rs3.getString(2) + "   " +  "Postal Code: " + rs3.getString(3) + "   "  + "Total number of listings: " + rs3.getString(4));
                 System.out.println();
             }
 
