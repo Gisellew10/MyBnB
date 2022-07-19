@@ -7,16 +7,16 @@ public class RentalHistory{
     private String Booking_ID;
     private int LID;
     private String UserID;
-    private String date;
+    private Date date;
     private String address;
     private String city;
     private String country;
     private double price;
-    private String start_date;
-    private String end_date;
+    private Date start_date;
+    private Date end_date;
     private boolean success;
 
-    public RentalHistory(String Booking_ID, int LID, String UserID, String date, String address, String city, String country, double price, String start_date, String end_date){
+    public RentalHistory(String Booking_ID, int LID, String UserID, Date date, String address, String city, String country, double price, Date start_date, Date end_date){
         this.Booking_ID = Booking_ID;
         this.LID = LID;
         this.UserID = UserID;
@@ -46,10 +46,10 @@ public class RentalHistory{
             ps.setString(4, this.address);
             ps.setString(5, this.city);
             ps.setString(6, this.country);
-            ps.setString(7, this.date);
+            ps.setDate(7, this.date);
             ps.setDouble(8, this.price);
-            ps.setString(9, this.start_date);
-            ps.setString(10, this.end_date);
+            ps.setDate(9, this.start_date);
+            ps.setDate(10, this.end_date);
 
             success = ps.execute();
 

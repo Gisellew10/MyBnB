@@ -8,11 +8,11 @@ public class Cancellation{
     private int LID;
     private String UserID;
     private String cancellation_date;
-    private String start_date;
-    private String end_date;
+    private Date start_date;
+    private Date end_date;
     private boolean success;
 
-    public Cancellation(String Booking_ID, int LID, String UserID, String cancellation_date, String start_date, String end_date){
+    public Cancellation(String Booking_ID, int LID, String UserID, String cancellation_date, Date start_date, Date end_date){
         this.Booking_ID = Booking_ID;
         this.LID = LID;
         this.UserID = UserID;
@@ -36,8 +36,8 @@ public class Cancellation{
             ps.setInt(2, this.LID);
             ps.setString(3, this.UserID);
             ps.setString(4, this.cancellation_date);
-            ps.setString(5, this.start_date);
-            ps.setString(6, this.end_date);
+            ps.setDate(5, this.start_date);
+            ps.setDate(6, this.end_date);
 
             success = ps.execute();
 

@@ -21,7 +21,8 @@ public class Update {
 
             Scanner inputdate = new Scanner(System.in);
             System.out.print("Enter the date of Listing that you would like to update its price: ");
-            String date = inputdate.nextLine();
+            String date_s = inputdate.nextLine();
+            Date date = Date.valueOf(date_s);
 
             Scanner inputprice= new Scanner(System.in);
             System.out.print("Enter the updated price: ");
@@ -61,7 +62,8 @@ public class Update {
     
             Scanner inputdate = new Scanner(System.in);
             System.out.print("Enter the date of Listing that you would like to update its price: ");
-            String date = inputdate.nextLine();
+            String date_s = inputdate.nextLine();
+            Date date = Date.valueOf(date_s);
     
             Scanner inputprice= new Scanner(System.in);
             System.out.print("Enter the updated price: ");

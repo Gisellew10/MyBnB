@@ -7,12 +7,12 @@ public class InsertUser{
     private String first_name;
     private String last_name;
     private String address;
-    private String date_of_birth;
+    private Date date_of_birth;
     private String occupation;
     private int SIN;
     private boolean success;
 
-    public InsertUser(String UserID, String first_name, String last_name, String address, String date_of_birth, String occupation, int SIN){
+    public InsertUser(String UserID, String first_name, String last_name, String address, Date date_of_birth, String occupation, int SIN){
         this.UserID = UserID;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -37,7 +37,7 @@ public class InsertUser{
             ps.setString(2, this.first_name);
             ps.setString(3, this.last_name);
             ps.setString(4, this.address);
-            ps.setString(5, this.date_of_birth);
+            ps.setDate(5, this.date_of_birth);
             ps.setString(6, this.occupation);
             ps.setInt(7, this.SIN);
 
