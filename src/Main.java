@@ -44,8 +44,11 @@ public class Main {
         // Reports report = new Reports();
         // report.IdentifyCommercialHosts();
 
+        // Reports report = new Reports();
+        // report.RankTheRenters(year);
+
         Reports report = new Reports();
-        report.RankTheRenters(year);
+        report.LargestCancellationReport(year);
 
 
 

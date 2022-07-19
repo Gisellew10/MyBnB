@@ -49,7 +49,8 @@ public class Delete {
 
         Scanner inputdate = new Scanner(System.in);
         System.out.print("Enter today's date: ");
-        String cancellation_date = inputdate.nextLine();
+        String cancellation_date_s = inputdate.nextLine();
+        Date cancellation_date = Date.valueOf(cancellation_date_s);
 
         try{
 

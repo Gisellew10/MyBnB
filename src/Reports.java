@@ -277,4 +277,38 @@ public class Reports {
             e.printStackTrace();
         }
     }
+
+
+    public void LargestCancellationReport(int year) throws ClassNotFoundException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        final String USER = "root";
+        final String PASS = "giselle";
+
+        try{
+            Connection con = null;
+            ResultSet rs = null;
+            String query = "SELECT C.UserID, first_name, last_name, COUNT(Booking_ID) FROM Cancellation C JOIN Users U WHERE C.UserID = U.UserID AND (SELECT EXTRACT(YEAR FROM cancellation_date)) = " + year + " GROUP BY C.UserID, first_name, last_name HAVING COUNT(Booking_ID) >= ALL(SELECT COUNT(Booking_ID) FROM Cancellation GROUP BY UserID) ";
+
+            con = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+
+            System.out.println("---Users With Largest Number Of Cancellations Within A Year Report---");
+            System.out.println();
+
+            while(rs.next()){
+                System.out.println("User ID: " + rs.getString(1) + "   " + "User's Name: " + rs.getString(2) + " " +rs.getString(3) + "   " +  "Number of cancellations: " + rs.getInt(4)) ;
+                System.out.println();
+            }
+        
+
+            rs.close();
+            con.close();
+
+            
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

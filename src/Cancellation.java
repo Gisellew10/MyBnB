@@ -7,12 +7,12 @@ public class Cancellation{
     private String Booking_ID;
     private int LID;
     private String UserID;
-    private String cancellation_date;
+    private Date cancellation_date;
     private Date start_date;
     private Date end_date;
     private boolean success;
 
-    public Cancellation(String Booking_ID, int LID, String UserID, String cancellation_date, Date start_date, Date end_date){
+    public Cancellation(String Booking_ID, int LID, String UserID, Date cancellation_date, Date start_date, Date end_date){
         this.Booking_ID = Booking_ID;
         this.LID = LID;
         this.UserID = UserID;
@@ -35,7 +35,7 @@ public class Cancellation{
             ps.setString(1, this.Booking_ID);
             ps.setInt(2, this.LID);
             ps.setString(3, this.UserID);
-            ps.setString(4, this.cancellation_date);
+            ps.setDate(4, this.cancellation_date);
             ps.setDate(5, this.start_date);
             ps.setDate(6, this.end_date);
 
