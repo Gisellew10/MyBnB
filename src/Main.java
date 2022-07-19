@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException{
+        int year = 2022;
         // UserInput user = new UserInput();
         // user.getUserInfo();
 
@@ -40,8 +41,11 @@ public class Main {
         // Reports report = new Reports();
         // report.RankTheHosts();
 
+        // Reports report = new Reports();
+        // report.IdentifyCommercialHosts();
+
         Reports report = new Reports();
-        report.IdentifyCommercialHosts();
+        report.RankTheRenters(year);
 
 
 

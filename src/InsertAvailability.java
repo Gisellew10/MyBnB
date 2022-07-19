@@ -6,12 +6,12 @@ public class InsertAvailability{
 
     private int LID;
     private String HostID;
-    private String date;
+    private Date date;
     private String availability;
     private double price;
     private boolean success;
 
-    public InsertAvailability(String HostID, int LID, String date, String availability, double price){
+    public InsertAvailability(String HostID, int LID, Date date, String availability, double price){
         this.HostID = HostID;
         this.LID = LID;
         this.date = date;
@@ -32,7 +32,7 @@ public class InsertAvailability{
             con.setAutoCommit(false);
             ps.setString(1, this.HostID);
             ps.setInt(2, this.LID);
-            ps.setString(3, this.date);
+            ps.setDate(3, this.date);
             ps.setString(4, this.availability);
             ps.setDouble(5, this.price);
 

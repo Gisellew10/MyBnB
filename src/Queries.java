@@ -39,17 +39,21 @@ public class Queries {
             System.out.print("Would you like to filter the listings by your preferred date range (Yes/No): ");
             String availability = inputAvailability.nextLine();
 
-            String start_date = null;
-            String end_date = null;
+            String start_date_s = null;
+            String end_date_s = null;
+            Date start_date = null;
+            Date end_date = null;
 
             if(availability.equals("Yes")){
                 Scanner inputstartdate= new Scanner(System.in);
-                System.out.print("Enter the start date (dd/mm/yyyy): ");
-                start_date = inputstartdate.nextLine();
+                System.out.print("Enter the start date (YYYY-MM-DD): ");
+                start_date_s = inputstartdate.nextLine();
+                start_date = Date.valueOf(start_date_s);
     
                 Scanner inputenddate = new Scanner(System.in);
-                System.out.print("Enter the end date(dd/mm/yyyy): ");
-                end_date = inputenddate.nextLine();
+                System.out.print("Enter the end date(YYYY-MM-DD): ");
+                end_date_s = inputenddate.nextLine();
+                end_date=Date.valueOf(end_date_s);
             }
 
             Scanner AmenitiesFilter = new Scanner(System.in);
@@ -239,17 +243,21 @@ public class Queries {
             System.out.print("Would you like to filter the listings by your preferred date range (Yes/No): ");
             String availability = inputAvailability.nextLine();
 
-            String start_date = null;
-            String end_date = null;
+            String start_date_s = null;
+            String end_date_s = null;
+            Date start_date = null;
+            Date end_date = null;
 
             if(availability.equals("Yes")){
                 Scanner inputstartdate= new Scanner(System.in);
-                System.out.print("Enter the start date (dd/mm/yyyy): ");
-                start_date = inputstartdate.nextLine();
+                System.out.print("Enter the start date (YYYY-MM-DD): ");
+                start_date_s = inputstartdate.nextLine();
+                start_date = Date.valueOf(start_date_s);
     
                 Scanner inputenddate = new Scanner(System.in);
-                System.out.print("Enter the end date(dd/mm/yyyy): ");
-                end_date = inputenddate.nextLine();
+                System.out.print("Enter the end date(YYYY-MM-DD): ");
+                end_date_s = inputenddate.nextLine();
+                end_date=Date.valueOf(end_date_s);
             }
 
             Scanner AmenitiesFilter = new Scanner(System.in);

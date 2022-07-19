@@ -62,8 +62,8 @@ public class Delete {
             rs = stmt.executeQuery(query);
 
             if(rs.next()){
-            String start_date = rs.getString(1);
-            String end_date = rs.getString(2);
+            Date start_date = rs.getDate(1);
+            Date end_date = rs.getDate(2);
             int LID = rs.getInt(3);
 
             Connection con2 = null;

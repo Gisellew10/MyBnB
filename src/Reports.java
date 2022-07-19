@@ -12,12 +12,14 @@ public class Reports {
 
         try{
             Scanner inputstartdate= new Scanner(System.in);
-            System.out.print("Enter the start date (dd/mm/yyyy): ");
-            String start_date = inputstartdate.nextLine();
+            System.out.print("Enter the start date (YYYY-MM-DD): ");
+            String start_date_s = inputstartdate.nextLine();
+            Date start_date = Date.valueOf(start_date_s);
 
             Scanner inputenddate = new Scanner(System.in);
-            System.out.print("Enter the end date(dd/mm/yyyy): ");
-            String end_date = inputenddate.nextLine();
+            System.out.print("Enter the end date(YYYY-MM-DD): ");
+            String end_date_s = inputenddate.nextLine();
+            Date end_date = Date.valueOf(end_date_s);
 
             System.out.println();
 
@@ -211,26 +213,59 @@ public class Reports {
     }
 
 
-    public void RankTheRenters() throws ClassNotFoundException{
+    public void RankTheRenters(int year) throws ClassNotFoundException{
         Class.forName("com.mysql.cj.jdbc.Driver");
         final String USER = "root";
         final String PASS = "giselle";
 
         try{
+
+            Scanner inputstartdate= new Scanner(System.in);
+            System.out.print("Enter the start date (YYYY-MM-DD): ");
+            String start_date_s = inputstartdate.nextLine();
+            Date start_date = Date.valueOf(start_date_s);
+
+            Scanner inputenddate = new Scanner(System.in);
+            System.out.print("Enter the end date(YYYY-MM-DD): ");
+            String end_date_s = inputenddate.nextLine();
+            Date end_date = Date.valueOf(end_date_s);
+            
+
+            System.out.println();
+
             Connection con = null;
             ResultSet rs = null;
-            String query = "SELECT UserID, first_name, last_name, city, country, COUNT(LID) FROM Listings JOIN Users WHERE UserID = HostID GROUP BY UserID, first_name, last_name, city, country ORDER BY COUNT(LID) DESC ";
+            String query = "SELECT R.UserID, first_name, last_name, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE R.UserID = U.UserID AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' GROUP BY UserID, first_name, last_name ORDER BY COUNT(Booking_ID) DESC";
 
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
 
 
-            System.out.println("---Rank The Hosts Report---");
+            System.out.println("---Rank The Renters In A Specific Time Period Report---");
             System.out.println();
 
             while(rs.next()){
-                System.out.println("Host ID: " + rs.getString(1) + "   " + "Host Name: " + rs.getString(2) + " " +rs.getString(3) + "   " + "City: " + rs.getString(4) + "   " + "Country: " + rs.getString(5) + "   " + "Number of listings: " + rs.getInt(6)) ;
+                System.out.println("Renter ID: " + rs.getString(1) + "   " + "Renter's Name: " + rs.getString(2) + " " +rs.getString(3) + "   " +  "Number of bookings: " + rs.getInt(4)) ;
+                System.out.println();
+            }
+
+            Connection con2 = null;
+            ResultSet rs2 = null;
+
+            //need to fix date in DATE form
+            String query2 = "SELECT R.UserID, first_name, last_name, city, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE R.UserID = U.UserID AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' GROUP BY UserID, first_name, last_name, city HAVING (SELECT COUNT(Booking_ID) From RentalHistory WHERE date LIKE '_ _/_ _/2022' >= 2) ORDER BY COUNT(Booking_ID) DESC";
+
+            con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt2 = con2.createStatement();
+            rs2 = stmt2.executeQuery(query2);
+
+
+            System.out.println("---Rank The Renters In A Specific Time Per City Period Report---");
+            System.out.println();
+
+            while(rs2.next()){
+                System.out.println("Renter ID: " + rs2.getString(1) + "   " + "Renter's Name: " + rs2.getString(2) + " " +rs2.getString(3) + "   " + "City: " + rs2.getString(4) + "   "+ "Number of bookings: " + rs2.getInt(5)) ;
                 System.out.println();
             }
 

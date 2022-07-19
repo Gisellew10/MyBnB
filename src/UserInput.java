@@ -1,3 +1,4 @@
+import java.sql.Date;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -48,14 +49,8 @@ public class UserInput {
 
         Scanner inputBirth = new Scanner(System.in);
         System.out.print("Enter your date of birth in the form dd/mm/yyyy: ");
-        String date_of_birth= inputBirth.nextLine();
-        String[] tokens = date_of_birth.split("/");
-        for(String s : tokens){
-            if(s.equals(" ")){
-                success = false;
-                System.out.println("Error! Please enter a valid date");
-            }
-        }
+        String date_of_birth_s = inputBirth.nextLine();
+        Date date_of_birth = Date.valueOf(date_of_birth_s);
 
         Scanner inputOccupation = new Scanner(System.in);
         System.out.print("Enter your occupation: ");
