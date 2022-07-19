@@ -229,13 +229,13 @@ public class Reports {
             System.out.print("Enter the end date(YYYY-MM-DD): ");
             String end_date_s = inputenddate.nextLine();
             Date end_date = Date.valueOf(end_date_s);
-            
+
 
             System.out.println();
 
             Connection con = null;
             ResultSet rs = null;
-            String query = "SELECT R.UserID, first_name, last_name, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE R.UserID = U.UserID AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' GROUP BY UserID, first_name, last_name ORDER BY COUNT(Booking_ID) DESC";
+            String query = "SELECT R.UserID, first_name, last_name, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE R.UserID = U.UserID AND date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY UserID, first_name, last_name ORDER BY COUNT(Booking_ID) DESC";
 
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
@@ -253,8 +253,7 @@ public class Reports {
             Connection con2 = null;
             ResultSet rs2 = null;
 
-            //need to fix date in DATE form
-            String query2 = "SELECT R.UserID, first_name, last_name, city, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE R.UserID = U.UserID AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' GROUP BY UserID, first_name, last_name, city HAVING (SELECT COUNT(Booking_ID) From RentalHistory WHERE date LIKE '_ _/_ _/2022' >= 2) ORDER BY COUNT(Booking_ID) DESC";
+            String query2 = "SELECT R.UserID, first_name, last_name, city, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE R.UserID = U.UserID AND date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY R.UserID, first_name, last_name, city HAVING (SELECT COUNT(Booking_ID) FROM RentalHistory WHERE (SELECT EXTRACT(YEAR FROM date)) = " + year + ") >= 2 ORDER BY COUNT(Booking_ID) DESC";
 
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con2.createStatement();
