@@ -71,7 +71,7 @@ public class HostToolkit {
             System.out.println("---Suggested Amenities And Expected Increased Revenue---");
 
             while(rs.next()){
-                System.out.println("amenities: " + rs.getString(1) + "   " + "price: " + rs.getDouble((2)));
+                System.out.println("amenities: " + rs.getString(1) + "   " + "increased revenue: " + rs.getDouble((2)));
                 System.out.println();
             }
         }
