@@ -39,9 +39,6 @@ public class ListingInput {
         System.out.print("Enter the amenities: ");
         String amenities = inputamenities.nextLine();
 
-        Scanner inputAreaSize = new Scanner(System.in);
-        System.out.print("Enter the area size of the listing in square foot: ");
-        int area_size = inputamenities.nextInt();
 
         Scanner inputBedroom = new Scanner(System.in);
         System.out.print("Enter the number of bedrooms: ");
@@ -56,7 +53,7 @@ public class ListingInput {
         int bed = inputBed.nextInt();
 
 
-        InsertListing myListing = new InsertListing(HostID, type, latitude, longtitude, address, city, country, postal_code, amenities, area_size, bedroom, bathroom, bed);
+        InsertListing myListing = new InsertListing(HostID, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed);
         boolean result = myListing.createListing();
 
         inputHostID.close();
