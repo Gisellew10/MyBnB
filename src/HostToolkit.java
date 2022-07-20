@@ -48,13 +48,18 @@ public class HostToolkit {
     }
 
 
-    public void SuggestAmenities(String type) throws ClassNotFoundException{
+    public void SuggestAmenities(String type, String check, int LID) throws ClassNotFoundException{
         Class.forName("com.mysql.cj.jdbc.Driver");
         final String USER = "root";
         final String PASS = "giselle";
 
         try{
-            String sql = "SELECT amenities, price FROM AmenitiesData WHERE type = '" + type + "'";
+            String sql = null;
+            if(check.equals("Insert")){
+                sql = "SELECT amenities, price FROM AmenitiesData WHERE type = '" + type + "'";
+            }else if(check.equals("Update")){
+                sql = "SELECT amenities, price FROM AmenitiesData WHERE type = '" + type + "' AND amenities NOT IN (SELECT amenities FROM Listings WHERE LID = '" + LID + "')" ;
+            }
             Connection con = null;
             ResultSet rs = null;
 
@@ -67,6 +72,7 @@ public class HostToolkit {
 
             while(rs.next()){
                 System.out.println("amenities: " + rs.getString(1) + "   " + "price: " + rs.getDouble((2)));
+                System.out.println();
             }
         }
 
