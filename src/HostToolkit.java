@@ -45,5 +45,33 @@ public class HostToolkit {
         }
         return suggest_price;
     }
-    
+
+
+    public void SuggestAmenities(String type) throws ClassNotFoundException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        final String USER = "root";
+        final String PASS = "giselle";
+
+        try{
+            String sql = "SELECT amenities, price FROM AmenitiesData WHERE type = '" + type + "'";
+            Connection con = null;
+            ResultSet rs = null;
+
+            con = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(sql);
+
+            System.out.println();
+            System.out.println("---Suggested Amenities And Expected Increased Revenue---");
+
+            while(rs.next()){
+                System.out.println("amenities: " + rs.getString(1) + "   " + "price: " + rs.getDouble((2)));
+            }
+        }
+
+        catch(SQLException e){
+            e.printStackTrace();
+        }
     }
+    
+}
