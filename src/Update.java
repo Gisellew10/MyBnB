@@ -4,11 +4,11 @@ import java.sql.*;
 public class Update {
 
     private static final String CONNECTION = "jdbc:mysql://localhost:3306/mybnb"; 
-
     final String USER = "root";
     final String PASS = "giselle";
 
     public void UpdatePrice(){
+        
         try{
 
             Scanner inputUserID = new Scanner(System.in);

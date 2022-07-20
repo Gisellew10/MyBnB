@@ -1,10 +1,16 @@
 import java.sql.Date;
 import java.util.Scanner;
 import java.util.UUID;
+import java.sql.*;
 
 public class UserInput {
-    public void getUserInfo() throws ClassNotFoundException
-    {
+    private static final String CONNECTION = "jdbc:mysql://localhost:3306/mybnb"; 
+
+    public void getUserInfo(int year) throws ClassNotFoundException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        final String USER = "root";
+        final String PASS = "giselle";
+
         boolean success = true;
         Scanner inputUserType = new Scanner(System.in);
         System.out.print("Become a Host or Renter: ");
@@ -39,18 +45,17 @@ public class UserInput {
             System.out.println("Error! Please enter your address");
         }
 
-        Scanner inputAge= new Scanner(System.in);
-        System.out.print("Enter your age: ");
-        int age = inputAge.nextInt();
-        if(age < 18){
+        Scanner inputBirth = new Scanner(System.in);
+        System.out.print("Enter your date of birth in the form YYYY-MM-DD: ");
+        String date_of_birth_s = inputBirth.nextLine();
+        Date date_of_birth = Date.valueOf(date_of_birth_s);
+
+        String[] tokens = date_of_birth_s.split("-");
+        int age_year = Integer.valueOf(tokens[0]);
+        if(year - age_year < 18){
             success = false;
             System.out.println("User under 18 cannot create an account in AirBnB");
         }
-
-        Scanner inputBirth = new Scanner(System.in);
-        System.out.print("Enter your date of birth in the form dd/mm/yyyy: ");
-        String date_of_birth_s = inputBirth.nextLine();
-        Date date_of_birth = Date.valueOf(date_of_birth_s);
 
         Scanner inputOccupation = new Scanner(System.in);
         System.out.print("Enter your occupation: ");
@@ -118,7 +123,6 @@ public class UserInput {
         inputBirth.close();
         inputOccupation.close();
         inputSIN.close();
-        inputAge.close();
 
         if(success == true && user_type.equals("Host")){
             InsertUser myUser = new InsertUser(UserID, first_name, last_name, address, date_of_birth, occupation, SIN);

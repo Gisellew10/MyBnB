@@ -2,7 +2,7 @@ public class Main {
     public static void main(String[] args) throws ClassNotFoundException{
         int year = 2022;
         // UserInput user = new UserInput();
-        // user.getUserInfo();
+        // user.getUserInfo(year);
 
         // ListingInput listing = new ListingInput();
         // listing.getListingInfo();
