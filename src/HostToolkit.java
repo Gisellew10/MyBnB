@@ -34,7 +34,8 @@ public class HostToolkit {
 
                 if(rs2.next()){
                     double base_price = rs.getDouble(1);
-                    //increase one bedroom increase 20% of price and increase one bathroom increase 10% of price
+                    //increase one bedroom will increase 20% of price
+                    //increase one bathroom will increase 10% of price
                     suggest_price = base_price + (base_price * 0.2) * (bedroom -1) + (base_price * 0.1) * (bathroom -1);
                 }
             }
