@@ -11,9 +11,10 @@ public class InsertComment{
     private String User_Comments;
     int Listing_Rate;
     int Reviewe_Rate;
+    Date date;
     private boolean success;
 
-    public InsertComment(int LID, String Reviewe_ID, String Reviewer_ID, String User_Comments, String Listing_Comments, int Listing_Rate, int Reviewe_Rate){
+    public InsertComment(int LID, String Reviewe_ID, String Reviewer_ID, String User_Comments, String Listing_Comments, int Listing_Rate, int Reviewe_Rate, Date date){
         this.LID = LID;
         this.Reviewe_ID = Reviewe_ID;
         this.Reviewer_ID = Reviewer_ID;
@@ -21,6 +22,7 @@ public class InsertComment{
         this.Listing_Comments = Listing_Comments;
         this.Listing_Rate = Listing_Rate;
         this.Reviewe_Rate = Reviewe_Rate;
+        this.date = date;
     }
 
     public boolean createComment(){
@@ -28,7 +30,7 @@ public class InsertComment{
         final String PASS = "giselle";
         try{
             Connection con = null;
-            String sql = "INSERT INTO Comments (LID, Reviewe_ID, Reviewer_ID, User_Comments, Listing_Comments, Listing_Rate, Reviewe_Rate) VALUES (?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Comments (LID, Reviewe_ID, Reviewer_ID, User_Comments, Listing_Comments, Listing_Rate, Reviewe_Rate, date) VALUES (?,?,?,?,?,?,?,?)";
             
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);
@@ -41,6 +43,7 @@ public class InsertComment{
             ps.setString(5, this.Listing_Comments);
             ps.setInt(6, this.Listing_Rate);
             ps.setInt(7, this.Reviewe_Rate);
+            ps.setDate(8, this.date);
 
             success = ps.execute();
 

@@ -24,7 +24,7 @@ public class InsertAvailability{
         final String PASS = "giselle";
         try{
             Connection con = null;
-            String sql = "INSERT INTO Availability (Host_ID, LID, date, availability, price) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO Availability (HostID, LID, date, availability, price) VALUES (?,?,?,?,?)";
             
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);

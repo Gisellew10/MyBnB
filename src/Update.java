@@ -28,6 +28,7 @@ public class Update {
             System.out.print("Enter the updated price: ");
             double price = inputprice.nextDouble();
 
+
             String update = "UPDATE Availability SET price = " + price + "WHERE LID = " + LID + "AND date = '" + date + "'" ;
 
             Connection con = null;

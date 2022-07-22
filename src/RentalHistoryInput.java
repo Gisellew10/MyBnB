@@ -16,7 +16,7 @@ public class RentalHistoryInput{
                 
             Scanner inputUID = new Scanner(System.in);
             System.out.print("Enter your User ID: ");
-            String UserID = inputUID.nextLine();
+            String RenterID = inputUID.nextLine();
 
             Scanner inputLID = new Scanner(System.in);
             System.out.print("Enter the Listing ID that you would like to book: ");
@@ -37,7 +37,7 @@ public class RentalHistoryInput{
             String date_s = inputdate.nextLine();
             Date date = Date.valueOf(date_s);
 
-            String query = "SELECT address, city, country, AVG(price) FROM Listings NATURAL JOIN Availability WHERE LID = '" + LID + "' GROUP BY address, city, country" ;
+            String query = "SELECT address, city, country, AVG(price), HostID FROM Listings NATURAL JOIN Availability WHERE LID = '" + LID + "' GROUP BY address, city, country, HostID" ;
 
 
             Connection con = null;
@@ -49,6 +49,7 @@ public class RentalHistoryInput{
             String address = null;
             String city = null;
             String country = null;
+            String HostID = null;
             double price = 0;
             boolean result = true;
 
@@ -57,6 +58,7 @@ public class RentalHistoryInput{
                 city = rs.getString(2);
                 country = rs.getString(3);
                 price = rs.getDouble(4);
+                HostID = rs.getString(5);
 
                 String Booking_ID;
                 UUID uuid = UUID.randomUUID();
@@ -64,7 +66,7 @@ public class RentalHistoryInput{
 
                 //need to have 'check' to check the listing is available
 
-                RentalHistory myRentalHistory= new RentalHistory(Booking_ID, LID, UserID, date, address, city, country, price, start_date, end_date);
+                RentalHistory myRentalHistory= new RentalHistory(Booking_ID, LID, HostID, RenterID, date, address, city, country, price, start_date, end_date);
                 result = myRentalHistory.createRentalHistory();
             }
 

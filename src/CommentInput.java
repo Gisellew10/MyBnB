@@ -1,3 +1,4 @@
+import java.sql.Date;
 import java.util.Scanner;
 
 
@@ -32,7 +33,12 @@ public class CommentInput{
         System.out.print("Please rate this user (1-5): ");
         int Reviewe_Rate = inputRevieweRate.nextInt();
 
-        InsertComment mycomment = new InsertComment(LID, Reviewe_ID, Reviewer_ID, User_Comments, Listing_Comments, Listing_Rate, Reviewe_Rate);
+        Scanner inputdate = new Scanner(System.in);
+        System.out.print("Enter the current date(YYYY-MM-DD): ");
+        String date_s = inputdate.nextLine();
+        Date date = Date.valueOf(date_s);
+
+        InsertComment mycomment = new InsertComment(LID, Reviewe_ID, Reviewer_ID, User_Comments, Listing_Comments, Listing_Rate, Reviewe_Rate, date);
         boolean result = mycomment.createComment();
 
 

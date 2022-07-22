@@ -7,7 +7,7 @@ public class AvailabilityInput {
     {
         Scanner inputHost_ID = new Scanner(System.in);
         System.out.print("Enter your Host ID: ");
-        String Host_ID = inputHost_ID.nextLine();
+        String HostID = inputHost_ID.nextLine();
 
         Scanner inputLID = new Scanner(System.in);
         System.out.print("Enter the Listing ID: ");
@@ -27,7 +27,7 @@ public class AvailabilityInput {
         double price = inputprice.nextDouble();
 
 
-        InsertAvailability myAvailability = new InsertAvailability(Host_ID, LID, date, availability, price);
+        InsertAvailability myAvailability = new InsertAvailability(HostID, LID, date, availability, price);
         boolean result = myAvailability.createAvailability();
 
         inputLID.close();

@@ -10,6 +10,9 @@ public class Main {
         // AvailabilityInput availability = new AvailabilityInput();
         // availability.getAvailabilityInfo();
 
+        Update update = new Update();
+        update.UpdatePrice();
+
         // Delete delete = new Delete();
         // delete.DeleteUser();
 
@@ -47,8 +50,8 @@ public class Main {
         // Reports report = new Reports();
         // report.RankTheRenters(year);
 
-        Reports report = new Reports();
-        report.LargestCancellationReport(year);
+        // Reports report = new Reports();
+        // report.LargestCancellationReport(year);
 
 
 

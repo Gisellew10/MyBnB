@@ -92,6 +92,8 @@ public class Delete {
             con2.close();
             con3.close();
             inputBooking.close();
+            }else{
+                System.out.println("Booking was not successfully canceled!");
             }
 
         }
@@ -104,6 +106,12 @@ public class Delete {
 
 
     public boolean RemoveListing(){
+
+        Scanner inputUserID = new Scanner(System.in);
+        System.out.print("Enter your User ID ");
+        String UserID = inputUserID.nextLine();
+
+
         Scanner inputLID = new Scanner(System.in);
         System.out.print("Enter the Listing ID that you would like to remove: ");
         String LID = inputLID.nextLine();
