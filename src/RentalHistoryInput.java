@@ -15,7 +15,7 @@ public class RentalHistoryInput{
         try{
                 
             Scanner inputUID = new Scanner(System.in);
-            System.out.print("Enter your User ID: ");
+            System.out.print("Enter your Renter ID: ");
             String RenterID = inputUID.nextLine();
 
             Scanner inputLID = new Scanner(System.in);

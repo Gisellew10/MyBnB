@@ -1,6 +1,7 @@
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException{
         int year = 2022;
+
         // UserInput user = new UserInput();
         // user.getUserInfo(year);
 
@@ -10,8 +11,8 @@ public class Main {
         // AvailabilityInput availability = new AvailabilityInput();
         // availability.getAvailabilityInfo();
 
-        Update update = new Update();
-        update.UpdatePrice();
+        // Update update = new Update();
+        // update.UpdatePrice();
 
         // Delete delete = new Delete();
         // delete.DeleteUser();
@@ -19,8 +20,8 @@ public class Main {
         // RentalHistoryInput rental_history = new RentalHistoryInput();
         // rental_history.getRentingInfo();
 
-        // CommentInput comment = new CommentInput();
-        // comment.getCommentInfo();
+        CommentInput comment = new CommentInput();
+        comment.getCommentInfo();
 
         // delete.CancelBooking();
 
