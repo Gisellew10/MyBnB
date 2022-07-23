@@ -28,6 +28,23 @@ public class Update {
             System.out.print("Enter the updated price: ");
             double price = inputprice.nextDouble();
 
+            Connection con0 = null;
+            ResultSet rs0 = null;
+            String query0 = "SELECT availability FROM Availability WHERE LID = '" + LID + "' AND date = '" + date + "'";
+
+            con0 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt0 = con0.createStatement();
+            rs0 = stmt0.executeQuery(query0);
+
+            if(rs0.next()){
+                String availability = rs0.getString(1);
+
+                if(availability.equals("unavailable")){
+                    System.out.println("Error! Price cannot be changed after it is booked!");
+                    return;
+                }
+            }
+
 
             String update = "UPDATE Availability SET price = " + price + "WHERE LID = " + LID + "AND date = '" + date + "'" ;
 
@@ -58,19 +75,37 @@ public class Update {
             String UserID = inputUserID.nextLine();
     
             Scanner inputLID = new Scanner(System.in);
-            System.out.print("Enter the Listing ID that you would like to update its price: ");
+            System.out.print("Enter the Listing ID that you would like to update its availability: ");
             int LID = inputLID.nextInt();
     
             Scanner inputdate = new Scanner(System.in);
-            System.out.print("Enter the date of Listing that you would like to update its price: ");
+            System.out.print("Enter the date of Listing that you would like to update: ");
             String date_s = inputdate.nextLine();
             Date date = Date.valueOf(date_s);
     
             Scanner inputprice= new Scanner(System.in);
-            System.out.print("Enter the updated price: ");
-            double price = inputprice.nextDouble();
+            System.out.print("Choose available or unavailable: ");
+            String availability = inputprice.nextLine();
+
+            Connection con0 = null;
+            ResultSet rs0 = null;
+            String query0 = "SELECT availability FROM Availability WHERE LID = '" + LID + "' AND date = '" + date + "'";
+
+            con0 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt0 = con0.createStatement();
+            rs0 = stmt0.executeQuery(query0);
+
+            if(rs0.next()){
+                String availability_check = rs0.getString(1);
+
+                if(availability_check.equals("unavailable")){
+                    System.out.println("Error! Availability cannot be changed after it is booked!");
+                    return;
+                }
+            }
+
     
-            String update = "UPDATE Availability SET price = " + price + "WHERE LID = " + LID + "AND date = '" + date + "'" ;
+            String update = "UPDATE Availability SET availability = " + availability + "WHERE LID = " + LID + "AND date = '" + date + "'" ;
     
             Connection con = null;
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
@@ -80,7 +115,7 @@ public class Update {
             con.commit();
             con.close();
     
-            System.out.println("Price was successfully updated!");
+            System.out.println("Availability was successfully updated!");
 
         }
 
@@ -98,7 +133,7 @@ public class Update {
             String UserID = inputUserID.nextLine();
     
             Scanner inputLID = new Scanner(System.in);
-            System.out.print("Enter the Listing ID that you would like to update its price: ");
+            System.out.print("Enter the Listing ID that you would like to update its amenities: ");
             int LID = inputLID.nextInt();
 
 
@@ -156,6 +191,13 @@ public class Update {
             con4 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt4 = con4.createStatement();
             stmt4.executeUpdate(update2);
+
+            String update3 = "UPDATE Availability SET price = price + '" + increased_revenue + "' WHERE availability = 'available' AND LID = " + LID;
+    
+            Connection con5 = null;
+            con5 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt5 = con5.createStatement();
+            stmt5.executeUpdate(update3);
     
             con.commit();
             con.close();
