@@ -311,4 +311,63 @@ public class Reports {
             e.printStackTrace();
         }
     }
+
+    public void MostPopularNP() throws ClassNotFoundException{
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        final String USER = "root";
+        final String PASS = "giselle";
+
+        try{
+            Connection con = null;
+            ResultSet rs = null;
+            String query = "SELECT LID, Listing_Comments FROM Comments WHERE Reviewer_ID LIKE 'Renter-%' GROUP BY LID";
+
+            con = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+
+
+            System.out.println("---Most Popular Noun Phrases Associated With The Listing---");
+            System.out.println();
+
+            while(rs.next()){
+                Connection con2 = null;
+
+                String table = "CREATE TABLE #CountWords (LID int, word varchar(30)) ";
+
+                con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+                Statement stmt2 = con2.createStatement();
+                stmt2.executeUpdate(table);
+
+                int LID = rs.getInt(1);
+                String comments = rs.getString(2);
+
+                String[] words_list = comments.split(" ");
+
+                for(String words : words_list){
+                    stmt2.executeUpdate("INSERT INTO #CountWords VALUES (" + LID + ", '" + words + "')"); 
+                }
+            }
+
+            Connection con3 = null;
+            ResultSet rs3 = null;
+            String query3 = "SELECT LID, word, COUNT(word) FROM #CountWords WHERE word NOT IN ('a', 'the', 'an', 'am', 'is', 'are', 'were', 'was', 'of', 'at', 'as', 'by', 'on', ',', '.') GROUP BY LID, word ORDER BY COUNT(word) DESC LIMIT 5";
+
+            con = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt3 = con3.createStatement();
+            rs3 = stmt3.executeQuery(query3);
+
+            while(rs3.next()){
+                System.out.println("Listing ID: " + rs.getInt(1) + "   " + "Word: " + rs3.getString(2) + "   "+ "Count: " + rs3.getInt(3));
+            }
+
+
+            rs.close();
+            con.close();
+
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
