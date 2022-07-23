@@ -320,24 +320,29 @@ public class Reports {
         try{
             Connection con = null;
             ResultSet rs = null;
-            String query = "SELECT LID, Listing_Comments FROM Comments WHERE Reviewer_ID LIKE 'Renter-%' GROUP BY LID";
+            String query = "SELECT LID, Listing_Comments FROM Comments WHERE Reviewer_ID LIKE 'Renter-%'";
 
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
 
+            Connection con3 = null;
+            con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt3 = con.createStatement();
 
+            System.out.println();
             System.out.println("---Most Popular Noun Phrases Associated With The Listing---");
             System.out.println();
 
+            Connection con5 = null;
+            con5 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt5 = con5.createStatement();
+
+            String sql2 = "CREATE TABLE CountWords (LID int, word varchar(30));";
+            stmt5.executeUpdate(sql2);
+
+
             while(rs.next()){
-                Connection con2 = null;
-
-                String table = "CREATE TABLE #CountWords (LID int, word varchar(30)) ";
-
-                con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
-                Statement stmt2 = con2.createStatement();
-                stmt2.executeUpdate(table);
 
                 int LID = rs.getInt(1);
                 String comments = rs.getString(2);
@@ -345,25 +350,39 @@ public class Reports {
                 String[] words_list = comments.split(" ");
 
                 for(String words : words_list){
-                    stmt2.executeUpdate("INSERT INTO #CountWords VALUES (" + LID + ", '" + words + "')"); 
+                    stmt3.executeUpdate("INSERT INTO CountWords VALUES (" + LID + ", '" + words + "')"); 
                 }
             }
 
-            Connection con3 = null;
-            ResultSet rs3 = null;
-            String query3 = "SELECT LID, word, COUNT(word) FROM #CountWords WHERE word NOT IN ('a', 'the', 'an', 'am', 'is', 'are', 'were', 'was', 'of', 'at', 'as', 'by', 'on', ',', '.') GROUP BY LID, word ORDER BY COUNT(word) DESC LIMIT 5";
 
-            con = DriverManager.getConnection(CONNECTION,USER,PASS);
-            Statement stmt3 = con3.createStatement();
-            rs3 = stmt3.executeQuery(query3);
+            Connection con2 = null;
+            ResultSet rs2 = null;
+            String query2 = "SELECT LID, word, COUNT(word) FROM CountWords WHERE word NOT IN ('and', 'a', 'the', 'an', 'am', 'is', 'are', 'were', 'was', 'of', 'at', 'as', 'by', 'on', ',', '.') GROUP BY LID, word ORDER BY COUNT(word) DESC LIMIT 5";
 
-            while(rs3.next()){
-                System.out.println("Listing ID: " + rs.getInt(1) + "   " + "Word: " + rs3.getString(2) + "   "+ "Count: " + rs3.getInt(3));
+            con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt2 = con2.createStatement();
+            rs2 = stmt2.executeQuery(query2);
+
+            while(rs2.next()){
+                System.out.println("Listing ID: " + rs2.getInt(1) + "   " + "Word: " + rs2.getString(2) + "   "+ "Count: " + rs2.getInt(3));
             }
 
+            Connection con4 = null;
+            con4 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt4 = con4.createStatement();
+
+            String sql = "DROP TABLE CountWords;";
+            stmt4.executeUpdate(sql);
 
             rs.close();
             con.close();
+
+            rs2.close();
+            con2.close();
+
+            con3.close();
+            con4.close();
+
 
         }
         catch(SQLException e){

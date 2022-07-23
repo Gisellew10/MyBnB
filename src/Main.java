@@ -71,6 +71,9 @@ public class Main {
         // Reports report = new Reports();
         // report.LargestCancellationReport(year);
 
+        Reports report = new Reports();
+        report.MostPopularNP();
+
 
 
 

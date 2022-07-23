@@ -68,7 +68,7 @@ public class CommentInput{
             String start_date = String.valueOf(start_date_s);
             boolean result = true;
 
-            if(date_s.compareTo(start_date) > 0 && (RenterID.equals(Reviewe_ID) || RenterID.equals(Reviewe_ID)) && (HostID.equals(Reviewe_ID) || HostID.equals(Reviewer_ID))){
+            if(date_s.compareTo(start_date) > 0 && (RenterID.equals(Reviewe_ID) || RenterID.equals(Reviewer_ID)) && (HostID.equals(Reviewe_ID) || HostID.equals(Reviewer_ID))){
                 InsertComment mycomment = new InsertComment(LID, Reviewe_ID, Reviewer_ID, User_Comments, Listing_Comments, Listing_Rate, Reviewe_Rate, date);
                 result = mycomment.createComment();
             }else{
