@@ -1,12 +1,8 @@
 import java.util.Scanner;
 
 public class ListingInput {
-    public void getListingInfo() throws ClassNotFoundException
+    public void getListingInfo(String HostID) throws ClassNotFoundException
     {
-        Scanner inputHostID = new Scanner(System.in);
-        System.out.print("Enter your host ID: ");
-        String HostID = inputHostID.nextLine();
-
         Scanner inputtype = new Scanner(System.in);
         System.out.print("Enter the type: ");
         String type = inputtype.nextLine();
@@ -56,7 +52,6 @@ public class ListingInput {
         InsertListing myListing = new InsertListing(HostID, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed);
         boolean result = myListing.createListing();
 
-        inputHostID.close();
         inputtype.close();
         inputaddress.close();
         inputlatitude.close();

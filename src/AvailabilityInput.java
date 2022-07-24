@@ -3,11 +3,8 @@ import java.util.Scanner;
 
 
 public class AvailabilityInput {
-    public void getAvailabilityInfo() throws ClassNotFoundException
+    public void getAvailabilityInfo(String HostID) throws ClassNotFoundException
     {
-        Scanner inputHost_ID = new Scanner(System.in);
-        System.out.print("Enter your Host ID: ");
-        String HostID = inputHost_ID.nextLine();
 
         Scanner inputLID = new Scanner(System.in);
         System.out.print("Enter the Listing ID: ");
