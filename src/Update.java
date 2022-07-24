@@ -7,13 +7,9 @@ public class Update {
     final String USER = "root";
     final String PASS = "giselle";
 
-    public void UpdatePrice(){
+    public void UpdatePrice(String UserID){
         
         try{
-
-            Scanner inputUserID = new Scanner(System.in);
-            System.out.print("Enter your User ID: ");
-            String UserID = inputUserID.nextLine();
 
             Scanner inputLID = new Scanner(System.in);
             System.out.print("Enter the Listing ID that you would like to update its price: ");
@@ -67,12 +63,8 @@ public class Update {
     }
 
 
-    public void UpdateAvailability(){
+    public void UpdateAvailability(String UserID){
         try{
-
-            Scanner inputUserID = new Scanner(System.in);
-            System.out.print("Enter your User ID: ");
-            String UserID = inputUserID.nextLine();
     
             Scanner inputLID = new Scanner(System.in);
             System.out.print("Enter the Listing ID that you would like to update its availability: ");
@@ -125,12 +117,8 @@ public class Update {
 
     }
 
-    public void UpdateAmenities() throws ClassNotFoundException{
+    public void UpdateAmenities(String UserID) throws ClassNotFoundException{
         try{
-
-            Scanner inputUserID = new Scanner(System.in);
-            System.out.print("Enter your User ID: ");
-            String UserID = inputUserID.nextLine();
     
             Scanner inputLID = new Scanner(System.in);
             System.out.print("Enter the Listing ID that you would like to update its amenities: ");

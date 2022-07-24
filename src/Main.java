@@ -5,10 +5,10 @@ public class Main {
         int year = 2022;
 
         System.out.println();
-        System.out.print("Hello and Welcome to Airbnb!");
+        System.out.println("Hello and Welcome to Airbnb!");
         System.out.println();
-        System.out.print("1. Create an Account");
-        System.out.print("2. Login to Existing Account");
+        System.out.println("1. Create an Account");
+        System.out.println("2. Login to Existing Account");
         
         Scanner create = new Scanner(System.in);
         System.out.print("Please Enter your choice: ");
@@ -27,17 +27,19 @@ public class Main {
         String[] tokens = copy.split("-");
 
         if(tokens[0].equals("Host")){
-            System.out.print("------Menu------");
-            System.out.print("1. Create a new listing");
-            System.out.print("2. Remove a listing");
-            System.out.print("3. Cancel a booking");
-            System.out.print("4. Insert new availability");
-            System.out.print("5. Update availability");
-            System.out.print("6. Update listing price");
-            System.out.print("7. Update listing amenities");
-            System.out.print("8. Comment and rate a renter");
-            System.out.print("9. Delete your account");
-            System.out.print("------Enter exit if you want to sign out------");
+            System.out.println("------Menu------");
+            System.out.println("1. Create a new listing");
+            System.out.println("2. Remove a listing");
+            System.out.println("3. Cancel a booking");
+            System.out.println("4. Insert new availability");
+            System.out.println("5. Update availability");
+            System.out.println("6. Update listing price");
+            System.out.println("7. Update listing amenities");
+            System.out.println("8. Comment and rate a renter");
+            System.out.println("9. Rental History");
+            System.out.println("10. List of listings");
+            System.out.println("11. Delete your account");
+            System.out.println("------Enter exit if you want to sign out------");
 
             Scanner input = new Scanner(System.in);
             System.out.print("Please Enter your choice: ");
@@ -57,14 +59,35 @@ public class Main {
                 }else if(input_string.equals("IA")){
                     AvailabilityInput availability = new AvailabilityInput();
                     availability.getAvailabilityInfo(UserID);
+                }else if(input_string.equals("UA")){
+                    Update update = new Update();
+                    update.UpdateAvailability(UserID);
+                }else if(input_string.equals("UP")){
+                    Update update = new Update();
+                    update.UpdatePrice(UserID);
+                }else if(input_string.equals("UA")){
+                    Update update = new Update();
+                    update.UpdateAmenities(UserID);
+                }else if(input_string.equals("C")){
+                    CommentInput comment = new CommentInput();
+                    comment.getCommentInfo(UserID);
+                }else if(input_string.equals("R")){
+                    Retrieve retrieve = new Retrieve();
+                    retrieve.ShowRentalHistory(UserID);
+                }else if(input_string.equals("L")){
+                    Retrieve retrieve = new Retrieve();
+                    retrieve.ShowListings(UserID);
+                }else if(input_string.equals("D")){
+                    Delete delete = new Delete();
+                    delete.DeleteUser(UserID);
                 }
-
-
 
                 System.out.print("Please Enter your choice: ");
                 input_string = input.nextLine();
             }
-            
+
+            System.out.println("Bye!");
+            System.out.println();
         }
 
 
@@ -76,14 +99,9 @@ public class Main {
         // Update update = new Update();
         // update.UpdatePrice();
 
-        // Delete delete = new Delete();
-        // delete.DeleteUser(UserID);
-
         // RentalHistoryInput rental_history = new RentalHistoryInput();
         // rental_history.getRentingInfo();
 
-        // CommentInput comment = new CommentInput();
-        // comment.getCommentInfo();
 
         // delete.CancelBooking();
 

@@ -6,16 +6,13 @@ import java.sql.*;
 public class CommentInput{
     private static final String CONNECTION = "jdbc:mysql://localhost:3306/mybnb"; 
 
-    public void getCommentInfo() throws ClassNotFoundException
+    public void getCommentInfo(String Reviewer_ID) throws ClassNotFoundException
     {
         Class.forName("com.mysql.cj.jdbc.Driver");
         final String USER = "root";
         final String PASS = "giselle";
         
         try{
-            Scanner inputReviewer = new Scanner(System.in);
-            System.out.print("Enter your User ID: ");
-            String Reviewer_ID = inputReviewer.nextLine();
     
             Scanner inputLID= new Scanner(System.in);
             System.out.print("Enter the Listing ID that you would like to comment: ");
