@@ -5,13 +5,13 @@ public class PaymentInfo{
     private static final String CONNECTION = "jdbc:mysql://localhost:3306/mybnb"; 
 
     private String RenterID;
-    private int CreditCard_Num;
+    private String CreditCard_Num;
     private String ExpDate;
     private String Postal_Code;
     private int CVC;
     private boolean success;
 
-    public PaymentInfo(String RenterID, int CreditCard_Num, String ExpDate, String Postal_Code, int CVC){
+    public PaymentInfo(String RenterID, String CreditCard_Num, String ExpDate, String Postal_Code, int CVC){
         this.RenterID = RenterID;
         this.CreditCard_Num = CreditCard_Num;
         this.ExpDate = ExpDate;
@@ -31,7 +31,7 @@ public class PaymentInfo{
 
             con.setAutoCommit(false);
             ps.setString(1, this.RenterID);
-            ps.setInt(2, this.CreditCard_Num);
+            ps.setString(2, this.CreditCard_Num);
             ps.setString(3, this.ExpDate);
             ps.setString(4, this.Postal_Code);
             ps.setInt(5, this.CVC);

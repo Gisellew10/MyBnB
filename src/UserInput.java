@@ -76,7 +76,7 @@ public class UserInput {
             System.out.println("Error! Please enter your valid 9-digit social insurance number");
         }
 
-        int CreditCard_Num = 0;
+        String CreditCard_Num = null;
         String ExpDate = null;
         String Postal_Code = null;
         int CVC = 0;
@@ -84,7 +84,7 @@ public class UserInput {
         if(user_type.equals("Renter")){
             Scanner inputCreditCard_Num = new Scanner(System.in);
             System.out.print("Enter your credit card number: ");
-            CreditCard_Num = inputCreditCard_Num.nextInt();
+            CreditCard_Num = inputCreditCard_Num.nextLine();
 
             Scanner inputExpDate = new Scanner(System.in);
             System.out.print("Enter the expiry date in the form MM/YY: ");
