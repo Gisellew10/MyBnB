@@ -17,13 +17,13 @@ public class Main {
 
         if(create_input == 3){
             System.out.println("------Menu------");
-            System.out.println("1. Total number of bookings in a specific date range");
-            System.out.println("2. Total number of listings");
-            System.out.println("3. Rank the hosts by the total number of listings");
-            System.out.println("4. Hosts that have a number of listings that is more than 10% of the numer of listings in that city and country");
-            System.out.println("5. Rank the renters by the number of bookings in a specific time period");
-            System.out.println("6. Hosts and renters with the largest number of cancellations within a year");
-            System.out.println("7. Most popular noun phrases associated with each listing");
+            System.out.println("1. Total number of bookings in a specific date range(TB)");
+            System.out.println("2. Total number of listings(TL)");
+            System.out.println("3. Rank the hosts by the total number of listings(RH)");
+            System.out.println("4. Hosts that have a number of listings that is more than 10% of the numer of listings in that city and country(IC)");
+            System.out.println("5. Rank the renters by the number of bookings in a specific time period(RR)");
+            System.out.println("6. Hosts and renters with the largest number of cancellations within a year(C)");
+            System.out.println("7. Most popular noun phrases associated with each listing(NP)");
             System.out.println("------Enter exit if you want to sign out------");
 
             Scanner input = new Scanner(System.in);
