@@ -15,6 +15,54 @@ public class Main {
         System.out.print("Please Enter your choice: ");
         int create_input = create.nextInt();
 
+        if(create_input == 3){
+            System.out.println("------Menu------");
+            System.out.println("1. Total number of bookings in a specific date range");
+            System.out.println("2. Total number of listings");
+            System.out.println("3. Rank the hosts by the total number of listings");
+            System.out.println("4. Hosts that have a number of listings that is more than 10% of the numer of listings in that city and country");
+            System.out.println("5. Rank the renters by the number of bookings in a specific time period");
+            System.out.println("6. Hosts and renters with the largest number of cancellations within a year");
+            System.out.println("7. Most popular noun phrases associated with each listing");
+            System.out.println("------Enter exit if you want to sign out------");
+
+            Scanner input = new Scanner(System.in);
+            System.out.print("Please Enter your choice: ");
+            String input_string = input.nextLine();
+
+
+            while(! (input_string.equals("exit"))){
+                if(input_string.equals("TB")){
+                    Reports report = new Reports();
+                    report.TotalBookingsReport();
+                }else if(input_string.equals("TL")){
+                    Reports report = new Reports();
+                    report.TotalListingsReport();
+                }else if(input_string.equals("RH")){
+                    Reports report = new Reports();
+                    report.RankTheHosts();
+                }else if(input_string.equals("IC")){
+                    Reports report = new Reports();
+                    report.IdentifyCommercialHosts();
+                }else if(input_string.equals("RR")){
+                    Reports report = new Reports();
+                    report.RankTheRenters(year);
+                }else if(input_string.equals("C")){
+                    Reports report = new Reports();
+                    report.LargestCancellationReport(year);
+                }else if(input_string.equals("NP")){
+                    Reports report = new Reports();
+                    report.MostPopularNP();
+                }
+
+                System.out.print("Please Enter your choice: ");
+                input_string = input.nextLine();
+            }
+
+            System.out.println("Bye!");
+            System.out.println();
+        }
+
         if(create_input == 1){
             UserInput user = new UserInput();
             user.getUserInfo(year);
@@ -147,37 +195,6 @@ public class Main {
 
 
 
-        // Update update = new Update();
-        // update.UpdatePrice();
-
-        // RentalHistoryInput rental_history = new RentalHistoryInput();
-        // rental_history.getRentingInfo();
-
-
-        // delete.CancelBooking();
-
-        // delete.RemoveListing();
-
-        // Queries query = new Queries();
-        // query.SearchByLatAndLon();
-
-        // Queries query = new Queries();
-        // query.SearchByPostalCode();
-
-        // Queries query = new Queries();
-        // query.SearchByAddress();
-
-        // Reports report = new Reports();
-        // report.TotalBookingsReport();
-        
-        // Reports report = new Reports();
-        // report.TotalListingsReport();
-
-        // Reports report = new Reports();
-        // report.RankTheHosts();
-
-        // Reports report = new Reports();
-        // report.IdentifyCommercialHosts();
 
         // Reports report = new Reports();
         // report.RankTheRenters(year);
