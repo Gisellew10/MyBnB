@@ -37,6 +37,9 @@ public class HostToolkit {
                     //increase one bedroom will increase 20% of price
                     //increase one bathroom will increase 10% of price
                     suggest_price = base_price + (base_price * 0.2) * (bedroom -1) + (base_price * 0.1) * (bathroom -1);
+
+                    System.out.println();
+                    System.out.println("---Suggested price: " + suggest_price + "---");
                 }
             }
         }

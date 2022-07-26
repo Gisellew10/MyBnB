@@ -31,6 +31,8 @@ public class ListingInput {
         System.out.print("Enter the postal code: ");
         String postal_code = inputpostal.nextLine();
 
+        HostToolkit suggest = new HostToolkit();
+        suggest.SuggestAmenities(type, "Insert", 0);
         Scanner inputamenities = new Scanner(System.in);
         System.out.print("Enter the amenities: ");
         String amenities = inputamenities.nextLine();

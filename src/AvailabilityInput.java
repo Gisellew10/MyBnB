@@ -19,6 +19,8 @@ public class AvailabilityInput {
         System.out.print("Enter the availability (available/unavailable): ");
         String availability  = inputavailability.nextLine();
 
+        HostToolkit suggest = new HostToolkit();
+        suggest.SuggestPrice(LID);
         Scanner inputprice = new Scanner(System.in);
         System.out.print("Enter the price: ");
         double price = inputprice.nextDouble();
