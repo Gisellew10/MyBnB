@@ -68,14 +68,20 @@ public class Main {
             user.getUserInfo(year);
         }
 
-        Scanner login = new Scanner(System.in);
+        System.out.println();
+        System.out.println("-----Login-----");
+        String UserID = null;
+        Scanner ID = new Scanner(System.in);
         System.out.print("Please Enter your User ID: ");
-        String UserID = login.nextLine();
+        if(ID.hasNextLine()){
+            UserID = ID.nextLine();
+        }
 
         String copy = UserID;
         String[] tokens = copy.split("-");
 
         if(tokens[0].equals("Host")){
+            System.out.println();
             System.out.println("------Menu------");
             System.out.println("1. Create a new listing(CL)");
             System.out.println("2. Remove a listing(RL)");
@@ -138,6 +144,7 @@ public class Main {
             System.out.println("Bye!");
             System.out.println();
         }else if(tokens[0].equals("Renter")){
+            System.out.println();
             System.out.println("------Menu------");
             System.out.println("1. Book a listing(BL)");
             System.out.println("2. Search for listings by latitude and longtitude(SL)");

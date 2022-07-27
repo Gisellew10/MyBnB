@@ -116,13 +116,13 @@ public class UserInput {
         boolean result = true;
         boolean result2 = true;
 
-        inputUserType.close();
-        inputFirstName.close();
-        inputLastName.close();
-        inputAddress.close();
-        inputBirth.close();
-        inputOccupation.close();
-        inputSIN.close();
+        // inputUserType.close();
+        // inputFirstName.close();
+        // inputLastName.close();
+        // inputAddress.close();
+        // inputBirth.close();
+        // inputOccupation.close();
+        // inputSIN.close();
 
         if(success == true && user_type.equals("Host")){
             InsertUser myUser = new InsertUser(UserID, first_name, last_name, address, date_of_birth, occupation, SIN);
@@ -144,6 +144,7 @@ public class UserInput {
 
         if(!result && !result2){
             System.out.println("User was successfully created!");
+            return;
         }else{
             System.out.println("User was not successfully created!");
             return;
