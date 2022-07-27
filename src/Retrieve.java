@@ -79,7 +79,6 @@ public class Retrieve {
                 System.out.println("Its price is: " + rs.getDouble(9));
                 System.out.println("Checkin: " + rs.getDate(10));
                 System.out.println("Checkout: " + rs.getDate(11));
-                System.out.println();
                 System.out.println("----------------------------------------");
                 System.out.println();
             }
