@@ -26,7 +26,7 @@ public class Cancellation{
         final String PASS = "giselle";
         try{
             Connection con = null;
-            String sql = "INSERT INTO Cancellation(Booking_ID, LID, UserID, cancellation_date, start_date, end_date) VALUES (?,?,?,?,?,?))";
+            String sql = "INSERT INTO Cancellation(Booking_ID, LID, UserID, cancellation_date, start_date, end_date) VALUES (?,?,?,?,?,?)";
             
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);

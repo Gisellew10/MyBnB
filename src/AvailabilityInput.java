@@ -29,10 +29,6 @@ public class AvailabilityInput {
         InsertAvailability myAvailability = new InsertAvailability(HostID, LID, date, availability, price);
         boolean result = myAvailability.createAvailability();
 
-        inputLID.close();
-        inputdate.close();
-        inputavailability.close();
-        inputprice.close();
 
         if(!result){
             System.out.println("Availability was successfully added!");

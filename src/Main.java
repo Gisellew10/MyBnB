@@ -29,6 +29,7 @@ public class Main {
             Scanner input = new Scanner(System.in);
             System.out.print("Please Enter your choice: ");
             String input_string = input.nextLine();
+            System.out.println();
 
 
             while(! (input_string.equals("exit"))){
@@ -101,6 +102,7 @@ public class Main {
             Scanner input = new Scanner(System.in);
             System.out.print("Please Enter your choice: ");
             String input_string = input.nextLine();
+            System.out.println();
 
 
             while(! (input_string.equals("exit"))){
@@ -139,6 +141,7 @@ public class Main {
                     delete.DeleteUser(UserID);
                 }
 
+                System.out.println();
                 System.out.print("Please Enter your choice: ");
                 if(input.hasNextLine()){
                     input_string = input.nextLine();
@@ -163,6 +166,7 @@ public class Main {
             Scanner input = new Scanner(System.in);
             System.out.print("Please Enter your choice: ");
             String input_string = input.nextLine();
+            System.out.println();
 
 
             while(! (input_string.equals("exit"))){
@@ -192,6 +196,7 @@ public class Main {
                     delete.DeleteUser(UserID);
                 }
 
+                System.out.println();
                 System.out.print("Please Enter your choice: ");
                 if(input.hasNextLine()){
                     input_string = input.nextLine();

@@ -66,7 +66,7 @@ public class Delete {
                 }
 
                 Connection con2 = null;
-                String sql = "DELETE FROM RentalHistory WHERE Booking_ID = '" + Booking_ID + "''";
+                String sql = "DELETE FROM RentalHistory WHERE Booking_ID = '" + Booking_ID + "'";
                 
                 con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
                 PreparedStatement ps = con2.prepareStatement(sql);
@@ -81,15 +81,14 @@ public class Delete {
                 Cancellation mycancellation = new Cancellation(Booking_ID, LID, UserID, cancellation_date, start_date, end_date);
                 boolean result = mycancellation.recordCancellation();
 
-                System.out.println("Booking was successfully canceled!");
 
                 success = ps.execute();
+                System.out.println("Booking was successfully canceled!");
 
                 ps.close();
                 con.close();
                 con2.close();
                 con3.close();
-                inputBooking.close();
             }else{
                 System.out.println("Booking was not successfully canceled!");
             }
@@ -156,7 +155,6 @@ public class Delete {
             con.close();
             con2.close();
             con3.close();
-            inputLID.close();
 
         }
         catch(SQLException e){

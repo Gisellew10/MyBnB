@@ -17,7 +17,6 @@ public class Retrieve {
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
-
             while(rs.next()){
                 System.out.println("The listing ID is: " + rs.getInt(1));
                 System.out.println("The host ID is: " + rs.getInt(2));
@@ -32,7 +31,6 @@ public class Retrieve {
                 System.out.println("Number of bedrooms: " + rs.getInt(11));
                 System.out.println("Number of bathrooms: " + rs.getInt(12));
                 System.out.println("Number of beds: " + rs.getString(13));
-                System.out.println();
                 System.out.println("----------------------------------------");
                 System.out.println();
             }

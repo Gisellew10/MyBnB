@@ -54,18 +54,10 @@ public class ListingInput {
         InsertListing myListing = new InsertListing(HostID, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed);
         boolean result = myListing.createListing();
 
-        inputtype.close();
-        inputaddress.close();
-        inputlatitude.close();
-        inputlongtitude.close();
-        inputcity.close();
-        inputcountry.close();
-        inputpostal.close();
-        inputamenities.close();
-
 
         if(!result){
             System.out.println("Listing was successfully added!");
+            return;
         }else{
             return;
         }
