@@ -60,9 +60,9 @@ public class Retrieve {
             ResultSet rs = null;
             String query = null;
             if(tokens[0].equals("Host")){
-                query = "SELECT * FROM Listings WHERE HostID = '" + UserID + "' ORDER BY date DESC";
+                query = "SELECT * FROM RentalHistory WHERE HostID = '" + UserID + "' ORDER BY date DESC";
             }else{
-                query = "SELECT * FROM Listings WHERE RenterID = '" + UserID + "' ORDER BY date DESC";
+                query = "SELECT * FROM RentalHistory WHERE RenterID = '" + UserID + "' ORDER BY date DESC";
             }
 
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
@@ -74,13 +74,13 @@ public class Retrieve {
                 System.out.println("The listing ID is: " + rs.getInt(2));
                 System.out.println("The host ID is: " + rs.getString(3));
                 System.out.println("The renter ID is: " + rs.getString(4));
-                System.out.println("Its address is: " + rs.getDouble(5));
+                System.out.println("Its address is: " + rs.getString(5));
                 System.out.println("The city of listing is: " + rs.getString(6));
-                System.out.println("The country of listing is:" + rs.getString(7));
-                System.out.println("The date of transaction:" + rs.getDate(8));
-                System.out.println("Its price is:" + rs.getDouble(9));
-                System.out.println("Checkin:" + rs.getDate(10));
-                System.out.println("Checkout:" + rs.getDate(11));
+                System.out.println("The country of listing is: " + rs.getString(7));
+                System.out.println("The date of transaction: " + rs.getDate(8));
+                System.out.println("Its price is: " + rs.getDouble(9));
+                System.out.println("Checkin: " + rs.getDate(10));
+                System.out.println("Checkout: " + rs.getDate(11));
                 System.out.println();
                 System.out.println("----------------------------------------");
                 System.out.println();

@@ -56,7 +56,9 @@ public class Main {
                 }
 
                 System.out.print("Please Enter your choice: ");
-                input_string = input.nextLine();
+                if(input.hasNextLine()){
+                    input_string = input.nextLine();
+                }
             }
 
             System.out.println("Bye!");
@@ -138,7 +140,9 @@ public class Main {
                 }
 
                 System.out.print("Please Enter your choice: ");
-                input_string = input.nextLine();
+                if(input.hasNextLine()){
+                    input_string = input.nextLine();
+                }
             }
 
             System.out.println("Bye!");
@@ -189,7 +193,9 @@ public class Main {
                 }
 
                 System.out.print("Please Enter your choice: ");
-                input_string = input.nextLine();
+                if(input.hasNextLine()){
+                    input_string = input.nextLine();
+                }
             }
 
             System.out.println("Bye!");

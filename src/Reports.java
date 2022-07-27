@@ -235,7 +235,7 @@ public class Reports {
 
             Connection con = null;
             ResultSet rs = null;
-            String query = "SELECT R.UserID, first_name, last_name, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE R.UserID = U.UserID AND date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY UserID, first_name, last_name ORDER BY COUNT(Booking_ID) DESC";
+            String query = "SELECT RenterID, first_name, last_name, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE R.RenterID = U.UserID AND date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY RenterID, first_name, last_name ORDER BY COUNT(Booking_ID) DESC";
 
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
@@ -253,7 +253,7 @@ public class Reports {
             Connection con2 = null;
             ResultSet rs2 = null;
 
-            String query2 = "SELECT R.UserID, first_name, last_name, city, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE R.UserID = U.UserID AND date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY R.UserID, first_name, last_name, city HAVING (SELECT COUNT(Booking_ID) FROM RentalHistory WHERE (SELECT EXTRACT(YEAR FROM date)) = " + year + ") >= 2 ORDER BY COUNT(Booking_ID) DESC";
+            String query2 = "SELECT RenterID, first_name, last_name, city, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE RenterID = UserID AND date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY RenterID, first_name, last_name, city HAVING (SELECT COUNT(Booking_ID) FROM RentalHistory WHERE (SELECT EXTRACT(YEAR FROM date)) = " + year + ") >= 2 ORDER BY COUNT(Booking_ID) DESC";
 
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con2.createStatement();
