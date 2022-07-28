@@ -10,6 +10,10 @@ public class Delete {
     private boolean success;
 
     public boolean DeleteUser(String UserID){
+
+        //Assumption: if you delete a user, it will cancel any booking associated with the related user (renter)
+        //Remove any listing associated with the related user (host)
+        
         try{
             Connection con = null;
             String sql = "DELETE FROM Users WHERE UserID = '" + UserID +"'";
@@ -17,9 +21,17 @@ public class Delete {
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);
 
-            System.out.println("User was successfully deleted!");
+            String copy = UserID;
+            String[] tokens = copy.split("-");
+
+            if(tokens[0].equals("Renter")){
+                CancelBooking(UserID);
+            }else if(tokens[0].equals("Host")){
+                RemoveListing(UserID);
+            }
 
             success = ps.execute();
+            System.out.println("User was successfully deleted!");
 
             ps.close();
             con.close();
