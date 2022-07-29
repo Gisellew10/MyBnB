@@ -209,6 +209,10 @@ public class Main {
                     Scanner inputdate = new Scanner(System.in);
                     System.out.print("Enter today's date: ");
                     String cancellation_date_s = inputdate.nextLine();
+
+                    Delete delete = new Delete();
+                    delete.CancelBooking(UserID, Booking_ID, cancellation_date_s);
+
                 }else if(input_string == 6){
                     CommentInput comment = new CommentInput();
                     comment.getCommentInfo(UserID);
