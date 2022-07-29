@@ -357,14 +357,16 @@ public class Reports {
 
             Connection con2 = null;
             ResultSet rs2 = null;
-            String query2 = "SELECT LID, word, COUNT(word) FROM CountWords WHERE word NOT IN ('and', 'a', 'the', 'an', 'am', 'is', 'are', 'were', 'was', 'of', 'at', 'as', 'by', 'on', ',', '.') GROUP BY LID, word ORDER BY COUNT(word) DESC LIMIT 5";
+            String query2 = "SELECT LID, word, COUNT(word) FROM CountWords WHERE word NOT IN ('very','and', 'a', 'the', 'an', 'am', 'is', 'are', 'were', 'was', 'of', 'at', 'as', 'by', 'on', ',', '.') GROUP BY LID, word ORDER BY COUNT(word) DESC LIMIT 5";
 
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con2.createStatement();
             rs2 = stmt2.executeQuery(query2);
 
             while(rs2.next()){
-                System.out.println("Listing ID: " + rs2.getInt(1) + "   " + "Word: " + rs2.getString(2) + "   "+ "Count: " + rs2.getInt(3));
+                String word = rs2.getString(2);
+                word = word.replaceAll(",", "");
+                System.out.println("Listing ID: " + rs2.getInt(1) + "   " + "Word: " + word + "   "+ "Count: " + rs2.getInt(3));
             }
 
             Connection con4 = null;
