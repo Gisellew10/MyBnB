@@ -26,7 +26,7 @@ public class Update {
 
             Connection con0 = null;
             ResultSet rs0 = null;
-            String query0 = "SELECT availability FROM Availability WHERE LID = '" + LID + "' AND date = '" + date + "'";
+            String query0 = "SELECT availability FROM Availability WHERE LID = " + LID + " AND date = '" + date + "'";
 
             con0 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt0 = con0.createStatement();
@@ -42,15 +42,12 @@ public class Update {
             }
 
 
-            String update = "UPDATE Availability SET price = " + price + "WHERE LID = " + LID + "AND date = '" + date + "'" ;
+            String update = "UPDATE Availability SET price = " + price + "WHERE LID = " + LID + " AND date = '" + date + "'";
 
             Connection con = null;
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             stmt.executeUpdate(update);
-
-            con.commit();
-            con.close();
 
             System.out.println("Price was successfully updated!");
 
@@ -81,7 +78,7 @@ public class Update {
 
             Connection con0 = null;
             ResultSet rs0 = null;
-            String query0 = "SELECT availability FROM Availability WHERE LID = '" + LID + "' AND date = '" + date + "'";
+            String query0 = "SELECT availability FROM Availability WHERE EXISTS (SELECT * FROM RentalHistory WHERE LID = " + LID + " AND '" + date + "' BETWEEN start_date AND end_date) AND LID = " + LID + " AND date = '" + date + "'";
 
             con0 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt0 = con0.createStatement();
@@ -97,15 +94,12 @@ public class Update {
             }
 
     
-            String update = "UPDATE Availability SET availability = " + availability + "WHERE LID = " + LID + "AND date = '" + date + "'" ;
+            String update = "UPDATE Availability SET availability = '" + availability + "' WHERE LID = " + LID + " AND date = '" + date + "'";
     
             Connection con = null;
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             stmt.executeUpdate(update);
-    
-            con.commit();
-            con.close();
     
             System.out.println("Availability was successfully updated!");
 
@@ -144,12 +138,12 @@ public class Update {
             hostToolkit.SuggestAmenities(type, "Update", LID);
     
             Scanner inputamenities = new Scanner(System.in);
-            System.out.print("Enter the amenities that you would like to update: ");
+            System.out.print("Enter the new amenities: ");
             String amenities_new = inputamenities.nextLine();
 
 
     
-            String update = "UPDATE Listings SET amenities = '" + amenities + "," + amenities_new + "' WHERE LID = " + LID;
+            String update = "UPDATE Listings SET amenities = '" + amenities_new + "' WHERE LID = " + LID;
     
             Connection con2 = null;
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);

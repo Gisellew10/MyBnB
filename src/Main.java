@@ -109,6 +109,9 @@ public class Main {
                 if(input_string == 1){
                     ListingInput listing = new ListingInput();
                     listing.getListingInfo(UserID);
+                    
+                    AvailabilityInput availability = new AvailabilityInput();
+                    availability.getAvailabilityInfo(UserID);
                 }else if(input_string == 2){
                     Delete delete = new Delete();
                     delete.RemoveListing(UserID);
