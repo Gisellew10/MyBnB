@@ -17,48 +17,48 @@ public class Main {
 
         if(create_input == 3){
             System.out.println("------Menu------");
-            System.out.println("1. Total number of bookings in a specific date range(TB)");
-            System.out.println("2. Total number of listings(TL)");
-            System.out.println("3. Rank the hosts by the total number of listings(RH)");
-            System.out.println("4. Hosts that have a number of listings that is more than 10% of the numer of listings in that city and country(IC)");
-            System.out.println("5. Rank the renters by the number of bookings in a specific time period(RR)");
-            System.out.println("6. Hosts and renters with the largest number of cancellations within a year(C)");
-            System.out.println("7. Most popular noun phrases associated with each listing(NP)");
-            System.out.println("------Enter exit if you want to sign out------");
+            System.out.println("1. Total number of bookings in a specific date range");
+            System.out.println("2. Total number of listings");
+            System.out.println("3. Rank the hosts by the total number of listings");
+            System.out.println("4. Hosts that have a number of listings that is more than 10% of the numer of listings in that city and country");
+            System.out.println("5. Rank the renters by the number of bookings in a specific time period");
+            System.out.println("6. Hosts and renters with the largest number of cancellations within a year");
+            System.out.println("7. Most popular noun phrases associated with each listing");
+            System.out.println("------Enter 0 if you want to sign out------");
 
             Scanner input = new Scanner(System.in);
             System.out.print("Please Enter your choice: ");
-            String input_string = input.nextLine();
+            int input_string = input.nextInt();
             System.out.println();
 
 
-            while(! (input_string.equals("exit"))){
-                if(input_string.equals("TB")){
+            while(input_string != 0){
+                if(input_string == 1){
                     Reports report = new Reports();
                     report.TotalBookingsReport();
-                }else if(input_string.equals("TL")){
+                }else if(input_string == 2){
                     Reports report = new Reports();
                     report.TotalListingsReport();
-                }else if(input_string.equals("RH")){
+                }else if(input_string == 3){
                     Reports report = new Reports();
                     report.RankTheHosts();
-                }else if(input_string.equals("IC")){
+                }else if(input_string == 4){
                     Reports report = new Reports();
                     report.IdentifyCommercialHosts();
-                }else if(input_string.equals("RR")){
+                }else if(input_string == 5){
                     Reports report = new Reports();
                     report.RankTheRenters(year);
-                }else if(input_string.equals("C")){
+                }else if(input_string == 6){
                     Reports report = new Reports();
                     report.LargestCancellationReport(year);
-                }else if(input_string.equals("NP")){
+                }else if(input_string == 7){
                     Reports report = new Reports();
                     report.MostPopularNP();
                 }
 
                 System.out.print("Please Enter your choice: ");
                 if(input.hasNextLine()){
-                    input_string = input.nextLine();
+                    input_string = input.nextInt();
                 }
             }
 
@@ -86,57 +86,57 @@ public class Main {
         if(tokens[0].equals("Host")){
             System.out.println();
             System.out.println("------Menu------");
-            System.out.println("1. Create a new listing(CL)");
-            System.out.println("2. Remove a listing(RL)");
-            System.out.println("3. Cancel a booking(CB)");
-            System.out.println("4. Insert new availability(IA)");
-            System.out.println("5. Update availability(UAV)");
-            System.out.println("6. Update listing price(UP)");
-            System.out.println("7. Update listing amenities(UA)");
-            System.out.println("8. Comment and rate a renter(C)");
-            System.out.println("9. Rental History(R)");
-            System.out.println("10. List of listings(L)");
-            System.out.println("11. Delete your account(D)");
-            System.out.println("------Enter exit if you want to sign out------");
+            System.out.println("1. Create a new listing");
+            System.out.println("2. Remove a listing");
+            System.out.println("3. Cancel a booking");
+            System.out.println("4. Insert new availability");
+            System.out.println("5. Update availability");
+            System.out.println("6. Update listing price");
+            System.out.println("7. Update listing amenities");
+            System.out.println("8. Comment and rate a renter");
+            System.out.println("9. Rental History");
+            System.out.println("10. List of listings");
+            System.out.println("11. Delete your account");
+            System.out.println("------Enter 0 if you want to sign out------");
 
             Scanner input = new Scanner(System.in);
             System.out.print("Please Enter your choice: ");
-            String input_string = input.nextLine();
+            int input_string = input.nextInt();
             System.out.println();
 
 
-            while(! (input_string.equals("exit"))){
-                if(input_string.equals("CL")){
+            while(input_string != 0){
+                if(input_string == 1){
                     ListingInput listing = new ListingInput();
                     listing.getListingInfo(UserID);
-                }else if(input_string.equals("RL")){
+                }else if(input_string == 2){
                     Delete delete = new Delete();
                     delete.RemoveListing(UserID);
-                }else if(input_string.equals("CB")){
+                }else if(input_string == 3){
                     Delete delete = new Delete();
                     delete.CancelBooking(UserID);
-                }else if(input_string.equals("IA")){
+                }else if(input_string == 4){
                     AvailabilityInput availability = new AvailabilityInput();
                     availability.getAvailabilityInfo(UserID);
-                }else if(input_string.equals("UAV")){
+                }else if(input_string == 5){
                     Update update = new Update();
                     update.UpdateAvailability(UserID);
-                }else if(input_string.equals("UP")){
+                }else if(input_string == 6){
                     Update update = new Update();
                     update.UpdatePrice(UserID);
-                }else if(input_string.equals("UA")){
+                }else if(input_string == 7){
                     Update update = new Update();
                     update.UpdateAmenities(UserID);
-                }else if(input_string.equals("C")){
+                }else if(input_string == 8){
                     CommentInput comment = new CommentInput();
                     comment.getCommentInfo(UserID);
-                }else if(input_string.equals("R")){
+                }else if(input_string == 9){
                     Retrieve retrieve = new Retrieve();
                     retrieve.ShowRentalHistory(UserID);
-                }else if(input_string.equals("L")){
+                }else if(input_string == 10){
                     Retrieve retrieve = new Retrieve();
                     retrieve.ShowListings(UserID);
-                }else if(input_string.equals("D")){
+                }else if(input_string == 11){
                     Delete delete = new Delete();
                     delete.DeleteUser(UserID);
                 }
@@ -144,7 +144,7 @@ public class Main {
                 System.out.println();
                 System.out.print("Please Enter your choice: ");
                 if(input.hasNextLine()){
-                    input_string = input.nextLine();
+                    input_string = input.nextInt();
                 }
             }
 
@@ -153,45 +153,45 @@ public class Main {
         }else if(tokens[0].equals("Renter")){
             System.out.println();
             System.out.println("------Menu------");
-            System.out.println("1. Book a listing(BL)");
-            System.out.println("2. Search for listings by latitude and longtitude(SL)");
-            System.out.println("3. Search for listings by postal code(SP)");
-            System.out.println("4. Exact search by address(SA)");
-            System.out.println("5. Cancel a booking(CP)");
-            System.out.println("6. Comment and rate a listing and host(C)");
-            System.out.println("7. Rental History(R)");
-            System.out.println("8. Delete your account(D)");
+            System.out.println("1. Book a listing");
+            System.out.println("2. Search for listings by latitude and longtitude");
+            System.out.println("3. Search for listings by postal code");
+            System.out.println("4. Exact search by address");
+            System.out.println("5. Cancel a booking");
+            System.out.println("6. Comment and rate a listing and host");
+            System.out.println("7. Rental History");
+            System.out.println("8. Delete your account");
             System.out.println("------Enter exit if you want to sign out------");
 
             Scanner input = new Scanner(System.in);
             System.out.print("Please Enter your choice: ");
-            String input_string = input.nextLine();
+            int input_string = input.nextInt();
             System.out.println();
 
 
-            while(! (input_string.equals("exit"))){
-                if(input_string.equals("BL")){
+            while(input_string != 0){
+                if(input_string == 1){
                     RentalHistoryInput rental_history = new RentalHistoryInput();
                     rental_history.getRentingInfo(UserID);
-                }else if(input_string.equals("SL")){
+                }else if(input_string == 2){
                     Queries search = new Queries();
                     search.SearchByLatAndLon();
-                }else if(input_string.equals("SP")){
+                }else if(input_string == 3){
                     Queries search = new Queries();
                     search.SearchByPostalCode();
-                }else if(input_string.equals("SA")){
+                }else if(input_string == 4){
                     Queries search = new Queries();
                     search.SearchByAddress();
-                }else if(input_string.equals("CB")){
+                }else if(input_string == 5){
                     Delete delete = new Delete();
                     delete.CancelBooking(UserID);
-                }else if(input_string.equals("C")){
+                }else if(input_string == 6){
                     CommentInput comment = new CommentInput();
                     comment.getCommentInfo(UserID);
-                }else if(input_string.equals("R")){
+                }else if(input_string == 7){
                     Retrieve retrieve = new Retrieve();
                     retrieve.ShowRentalHistory(UserID);
-                }else if(input_string.equals("D")){
+                }else if(input_string == 8){
                     Delete delete = new Delete();
                     delete.DeleteUser(UserID);
                 }
@@ -199,7 +199,7 @@ public class Main {
                 System.out.println();
                 System.out.print("Please Enter your choice: ");
                 if(input.hasNextLine()){
-                    input_string = input.nextLine();
+                    input_string = input.nextInt();
                 }
             }
 
