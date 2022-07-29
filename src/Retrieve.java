@@ -19,7 +19,7 @@ public class Retrieve {
             rs = stmt.executeQuery(query);
             while(rs.next()){
                 System.out.println("The listing ID is: " + rs.getInt(1));
-                System.out.println("The host ID is: " + rs.getInt(2));
+                System.out.println("The host ID is: " + rs.getString(2));
                 System.out.println("The type of listing is: " + rs.getString(3));
                 System.out.println("Its latitude is: " + rs.getDouble(4));
                 System.out.println("Its longtitude is: " + rs.getDouble(5));

@@ -9,11 +9,11 @@ public class Delete {
     final String PASS = "giselle";
     private boolean success;
 
-    public boolean DeleteUser(String UserID){
+    public boolean DeleteUser(String UserID, String delete_date){
 
         //Assumption: if you delete a user, it will cancel any booking associated with the related user (renter)
         //Remove any listing associated with the related user (host)
-        
+
         try{
             Connection con = null;
             String sql = "DELETE FROM Users WHERE UserID = '" + UserID +"'";
@@ -24,10 +24,31 @@ public class Delete {
             String copy = UserID;
             String[] tokens = copy.split("-");
 
+
+            Connection con2 = null;
+            ResultSet rs2 = null;
+            String query = null;
+
             if(tokens[0].equals("Renter")){
-                CancelBooking(UserID);
+                query = "SELECT Booking_ID from RentalHistory WHERE RenterID = '" + UserID + "' AND date >= '" + delete_date + "'";
+                con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+                Statement stmt2 = con2.createStatement();
+                rs2 = stmt2.executeQuery(query);
+    
+                while(rs2.next()){
+                    String Booking_ID = rs2.getString(1);
+                    CancelBooking(UserID, Booking_ID, delete_date);
+                }
             }else if(tokens[0].equals("Host")){
-                RemoveListing(UserID);
+                query = "SELECT LID from Listings WHERE HostID = '" + UserID + "'";
+                con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+                Statement stmt2 = con2.createStatement();
+                rs2 = stmt2.executeQuery(query);
+    
+                while(rs2.next()){
+                    String LID = rs2.getString(1);
+                    RemoveListing(UserID, LID);
+                }
             }
 
             success = ps.execute();
@@ -44,15 +65,10 @@ public class Delete {
     }
 
 
-    public boolean CancelBooking(String UserID){
+    public boolean CancelBooking(String UserID, String Booking_ID, String cancellation_date_s){
 
-        Scanner inputBooking = new Scanner(System.in);
-        System.out.print("Enter the Booking ID that you would like to cancel: ");
-        String Booking_ID = inputBooking.nextLine();
+        //Assumption: if a user cancel a booking, then the booking will be removed from RentalHistory
 
-        Scanner inputdate = new Scanner(System.in);
-        System.out.print("Enter today's date: ");
-        String cancellation_date_s = inputdate.nextLine();
         Date cancellation_date = Date.valueOf(cancellation_date_s);
 
         try{
@@ -114,11 +130,7 @@ public class Delete {
     }
 
 
-    public boolean RemoveListing(String HostID){
-
-        Scanner inputLID = new Scanner(System.in);
-        System.out.print("Enter the Listing ID that you would like to remove: ");
-        String LID = inputLID.nextLine();
+    public boolean RemoveListing(String HostID, String LID){
 
         try{
             Connection con0 = null;

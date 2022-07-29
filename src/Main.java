@@ -109,15 +109,27 @@ public class Main {
                 if(input_string == 1){
                     ListingInput listing = new ListingInput();
                     listing.getListingInfo(UserID);
-                    
+
                     AvailabilityInput availability = new AvailabilityInput();
                     availability.getAvailabilityInfo(UserID);
                 }else if(input_string == 2){
+                    Scanner inputLID = new Scanner(System.in);
+                    System.out.print("Enter the Listing ID that you would like to remove: ");
+                    String LID = inputLID.nextLine();
+
                     Delete delete = new Delete();
-                    delete.RemoveListing(UserID);
+                    delete.RemoveListing(UserID, LID);
                 }else if(input_string == 3){
+                    Scanner inputBooking = new Scanner(System.in);
+                    System.out.print("Enter the Booking ID that you would like to cancel: ");
+                    String Booking_ID = inputBooking.nextLine();
+
+                    Scanner inputdate = new Scanner(System.in);
+                    System.out.print("Enter today's date: ");
+                    String cancellation_date_s = inputdate.nextLine();
+
                     Delete delete = new Delete();
-                    delete.CancelBooking(UserID);
+                    delete.CancelBooking(UserID, Booking_ID, cancellation_date_s);
                 }else if(input_string == 4){
                     AvailabilityInput availability = new AvailabilityInput();
                     availability.getAvailabilityInfo(UserID);
@@ -140,8 +152,12 @@ public class Main {
                     Retrieve retrieve = new Retrieve();
                     retrieve.ShowListings(UserID);
                 }else if(input_string == 11){
+                    Scanner inputdate = new Scanner(System.in);
+                    System.out.print("Enter today's date: ");
+                    String delete_date = inputdate.nextLine();
+
                     Delete delete = new Delete();
-                    delete.DeleteUser(UserID);
+                    delete.DeleteUser(UserID, delete_date);
                 }
 
                 System.out.println();
@@ -186,8 +202,13 @@ public class Main {
                     Queries search = new Queries();
                     search.SearchByAddress();
                 }else if(input_string == 5){
-                    Delete delete = new Delete();
-                    delete.CancelBooking(UserID);
+                    Scanner inputBooking = new Scanner(System.in);
+                    System.out.print("Enter the Booking ID that you would like to cancel: ");
+                    String Booking_ID = inputBooking.nextLine();
+
+                    Scanner inputdate = new Scanner(System.in);
+                    System.out.print("Enter today's date: ");
+                    String cancellation_date_s = inputdate.nextLine();
                 }else if(input_string == 6){
                     CommentInput comment = new CommentInput();
                     comment.getCommentInfo(UserID);
@@ -195,8 +216,12 @@ public class Main {
                     Retrieve retrieve = new Retrieve();
                     retrieve.ShowRentalHistory(UserID);
                 }else if(input_string == 8){
+                    Scanner inputdate = new Scanner(System.in);
+                    System.out.print("Enter today's date: ");
+                    String delete_date = inputdate.nextLine();
+
                     Delete delete = new Delete();
-                    delete.DeleteUser(UserID);
+                    delete.DeleteUser(UserID, delete_date);
                 }
 
                 System.out.println();
