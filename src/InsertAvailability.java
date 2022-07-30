@@ -8,10 +8,10 @@ public class InsertAvailability{
     private String HostID;
     private Date date;
     private String availability;
-    private double price;
+    private int price;
     private boolean success;
 
-    public InsertAvailability(String HostID, int LID, Date date, String availability, double price){
+    public InsertAvailability(String HostID, int LID, Date date, String availability, int price){
         this.HostID = HostID;
         this.LID = LID;
         this.date = date;
@@ -34,7 +34,7 @@ public class InsertAvailability{
             ps.setInt(2, this.LID);
             ps.setDate(3, this.date);
             ps.setString(4, this.availability);
-            ps.setDouble(5, this.price);
+            ps.setInt(5, this.price);
 
             success = ps.execute();
 

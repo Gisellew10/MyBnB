@@ -22,7 +22,7 @@ public class Update {
 
             Scanner inputprice= new Scanner(System.in);
             System.out.print("Enter the updated price: ");
-            double price = inputprice.nextDouble();
+            int price = inputprice.nextInt();
 
             Connection con0 = null;
             ResultSet rs0 = null;
@@ -48,6 +48,13 @@ public class Update {
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             stmt.executeUpdate(update);
+
+            String update2 = "UPDATE Listings SET price = " + price + "WHERE LID = " + LID;
+
+            Connection con2 = null;
+            con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt2 = con2.createStatement();
+            stmt2.executeUpdate(update2);
 
             System.out.println("Price was successfully updated!");
 
@@ -154,9 +161,9 @@ public class Update {
             stmt2.executeUpdate(update);
 
             String[] tokens = amenities_new.split(",");
-            double increased_revenue = 0;
+            int increased_revenue = 0;
             for(String t : tokens){
-                increased_revenue = increased_revenue + (price * 0.05);
+                increased_revenue = (int) (increased_revenue + (price * 0.05));
             }
             System.out.println();
 

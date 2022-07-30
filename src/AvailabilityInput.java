@@ -23,7 +23,7 @@ public class AvailabilityInput {
         suggest.SuggestPrice(LID);
         Scanner inputprice = new Scanner(System.in);
         System.out.print("Enter the price: ");
-        double price = inputprice.nextDouble();
+        int price = inputprice.nextInt();
 
 
         InsertAvailability myAvailability = new InsertAvailability(HostID, LID, date, availability, price);

@@ -7,10 +7,10 @@ public class HostToolkit {
         Class.forName("com.mysql.cj.jdbc.Driver");
         final String USER = "root";
         final String PASS = "giselle";
-        double suggest_price = 0;
+        int suggest_price = 0;
 
         try{
-            String sql = "SELECT bedroom, bathroom, type, city FROM Listings WHERE LID = '" + LID + "'";
+            String sql = "SELECT bedroom, bathroom, city, country FROM Listings WHERE LID = '" + LID + "'";
             Connection con = null;
             ResultSet rs = null;
 
@@ -21,10 +21,10 @@ public class HostToolkit {
             if(rs.next()){
                 int bedroom = rs.getInt(1);
                 int bathroom = rs.getInt(2);
-                String type = rs.getString(3);
-                String city = rs.getString(4);
+                String city = rs.getString(3);
+                String country = rs.getString(4);
 
-                String sql2 = "SELECT price FROM PriceData WHERE city = '" + city + "' AND type = '" + type + "'";
+                String sql2 = "SELECT price FROM PriceData WHERE city = '" + city + "' AND country = '" + country + "'";
                 Connection con2 = null;
                 ResultSet rs2 = null;
     
@@ -33,13 +33,13 @@ public class HostToolkit {
                 rs2 = stmt2.executeQuery(sql2);
 
                 if(rs2.next()){
-                    double base_price = rs.getDouble(1);
+                    int base_price = rs.getInt(1);
                     //increase one bedroom will increase 20% of price
                     //increase one bathroom will increase 10% of price
-                    suggest_price = base_price + (base_price * 0.2) * (bedroom -1) + (base_price * 0.1) * (bathroom -1);
+                    suggest_price = (int) (base_price + (base_price * 0.2) * (bedroom -1) + (base_price * 0.1) * (bathroom -1));
 
                     System.out.println();
-                    System.out.println("---Suggested price: " + suggest_price + "---");
+                    System.out.println("Suggested price: $" + suggest_price);
                 }
             }
         }

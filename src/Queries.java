@@ -73,17 +73,17 @@ public class Queries {
             System.out.print("Would you like to filter the listings by your preferred price range (Yes/No): ");
             String price_filter = PriceFilter.nextLine();
 
-            double lowest_price = 0.0;
-            double highest_price = 0.0;
+            int lowest_price = 0;
+            int highest_price = 0;
 
             if(price_filter.equals("Yes")){
                 Scanner  inputLowestPrice = new Scanner(System.in);
                 System.out.print("Enter the lowest price in your price range: ");
-                lowest_price = inputLowestPrice.nextDouble();
+                lowest_price = inputLowestPrice.nextInt();
 
                 Scanner  inputHighestPrice = new Scanner(System.in);
                 System.out.print("Enter the highest price in your price range: ");
-                highest_price = inputHighestPrice.nextDouble();
+                highest_price = inputHighestPrice.nextInt();
             }
 
 
@@ -205,7 +205,8 @@ public class Queries {
                 System.out.println("Its address is: " + rs.getString(3) + ", " + rs.getString(4) + ", " + rs.getString(5));
                 System.out.println("Its postal code is: " + rs.getString(6));
                 System.out.println("The amenities it offers: " + rs.getString(7));
-                System.out.println("The average price of listing is: " + rs.getString(8));
+                int price = (int)rs.getDouble(8);
+                System.out.println("The average price of listing is: $" + price);
                 System.out.println();
             }
 
@@ -277,17 +278,17 @@ public class Queries {
             System.out.print("Would you like to filter the listings by your preferred price range (Yes/No): ");
             String price_filter = PriceFilter.nextLine();
 
-            double lowest_price = 0.0;
-            double highest_price = 0.0;
+            int lowest_price = 0;
+            int highest_price = 0;
 
             if(price_filter.equals("Yes")){
                 Scanner  inputLowestPrice = new Scanner(System.in);
                 System.out.print("Enter the lowest price in your price range: ");
-                lowest_price = inputLowestPrice.nextDouble();
+                lowest_price = inputLowestPrice.nextInt();
 
                 Scanner  inputHighestPrice = new Scanner(System.in);
                 System.out.print("Enter the highest price in your price range: ");
-                highest_price = inputHighestPrice.nextDouble();
+                highest_price = inputHighestPrice.nextInt();
             }
 
 
@@ -424,7 +425,8 @@ public class Queries {
                 System.out.println("Its address is: " + rs2.getString(3) + ", " + rs2.getString(4) + ", " + rs2.getString(5));
                 System.out.println("Its postal code is: " + rs2.getString(6));
                 System.out.println("The amenities it offers: " + rs2.getString(7));
-                System.out.println("The average price of listing is: " + rs2.getString(8));
+                int price = (int)rs.getDouble(8);
+                System.out.println("The average price of listing is: $" + price);
                 System.out.println();
             }
 
@@ -463,7 +465,8 @@ public class Queries {
                 System.out.println("Its address is: " + rs.getString(3) + ", " + rs.getString(4) + ", " + rs.getString(5));
                 System.out.println("Its postal code is: " + rs.getString(6));
                 System.out.println("The amenities it offers: " + rs.getString(7));
-                System.out.println("The average price of listing is: " + rs.getString(8));
+                int price = (int)rs.getDouble(8);
+                System.out.println("The average price of listing is: $" + price);
                 System.out.println();
             }else{
                 System.out.println("No Listing Found!");

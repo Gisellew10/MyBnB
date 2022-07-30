@@ -46,14 +46,16 @@ public class RentalHistoryInput{
             String city = null;
             String country = null;
             String HostID = null;
-            double price = 0;
+            double price_tmp = 0;
+            int price = 0;
             boolean result = true;
 
             if(rs.next()){
                 address = rs.getString(1);
                 city = rs.getString(2);
                 country = rs.getString(3);
-                price = rs.getDouble(4);
+                price_tmp = rs.getDouble(4);
+                price = (int) price_tmp;
                 HostID = rs.getString(5);
 
                 String Booking_ID;
