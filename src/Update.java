@@ -8,6 +8,7 @@ public class Update {
     final String PASS = "giselle";
 
     public void UpdatePrice(String UserID){
+        //Assumption: every time you update the price, it will also update the price posted on the listing
         
         try{
 
