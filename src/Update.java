@@ -160,7 +160,7 @@ public class Update {
             }
             System.out.println();
 
-            System.out.println("Increased revenue is: " + increased_revenue);
+            System.out.println("Expected increased revenue is: " + increased_revenue);
 
             String update2 = "UPDATE Listings SET price = price + '" + increased_revenue + "' WHERE LID = " + LID;
     
