@@ -15,9 +15,10 @@ public class InsertListing{
     private int bedroom;
     private int bathroom;
     private int bed;
+    private int price;
     private boolean success;
 
-    public InsertListing(String HostID, String type, double latitude, double longtitude, String address, String city, String country, String postal_code, String amenities, int bedroom, int bathroom, int bed){
+    public InsertListing(String HostID, String type, double latitude, double longtitude, String address, String city, String country, String postal_code, String amenities, int bedroom, int bathroom, int bed, int price){
         this.HostID = HostID;
         this.type = type;
         this.latitude = latitude;
@@ -30,6 +31,7 @@ public class InsertListing{
         this.bedroom = bedroom;
         this.bathroom = bathroom;
         this.bed = bed;
+        this.price = price;
     }
 
     public boolean createListing(){
@@ -37,7 +39,7 @@ public class InsertListing{
         final String PASS = "giselle";
         try{
             Connection con = null;
-            String sql = "INSERT INTO Listings (HostID, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Listings (HostID, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed, price) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);
@@ -55,6 +57,7 @@ public class InsertListing{
             ps.setInt(10, this.bedroom);
             ps.setInt(11, this.bathroom);
             ps.setInt(12, this.bed);
+            ps.setInt(13, this.price);
 
             success = ps.execute();
 

@@ -112,6 +112,7 @@ public class Update {
     }
 
     public void UpdateAmenities(String UserID) throws ClassNotFoundException{
+        //Assumption: for every amenities you add, you increased 5% of price
         try{
     
             Scanner inputLID = new Scanner(System.in);
@@ -119,7 +120,7 @@ public class Update {
             int LID = inputLID.nextInt();
 
 
-            String query = "SELECT type, amenities FROM Listings WHERE LID = " + LID;
+            String query = "SELECT type, amenities, price FROM Listings WHERE LID = " + LID;
 
             ResultSet rs = null;
             Connection con = null;
@@ -129,21 +130,23 @@ public class Update {
 
             String type = null;
             String amenities = null;
+            int price = 0;
             if(rs.next()){
                 type = rs.getString(1);
                 amenities = rs.getString(2);
+                price = rs.getInt(3);
             }
 
             HostToolkit hostToolkit = new HostToolkit();
             hostToolkit.SuggestAmenities(type, "Update", LID);
     
             Scanner inputamenities = new Scanner(System.in);
-            System.out.print("Enter the new amenities: ");
+            System.out.print("Enter the updated amenities: ");
             String amenities_new = inputamenities.nextLine();
 
 
     
-            String update = "UPDATE Listings SET amenities = '" + amenities_new + "' WHERE LID = " + LID;
+            String update = "UPDATE Listings SET amenities = '" + amenities + amenities_new + "' WHERE LID = " + LID;
     
             Connection con2 = null;
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
@@ -153,19 +156,11 @@ public class Update {
             String[] tokens = amenities_new.split(",");
             double increased_revenue = 0;
             for(String t : tokens){
-                String query2 = "SELECT price FROM AmenitiesData WHERE amenities = '" + t + "'";
-
-                ResultSet rs3 = null;
-                Connection con3 = null;
-                con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
-                Statement stmt3 = con3.createStatement();
-                rs3 = stmt3.executeQuery(query2);
-
-                if(rs.next()){
-                    increased_revenue = rs.getDouble(1);
-                }
-
+                increased_revenue = increased_revenue + (price * 0.05);
             }
+            System.out.println();
+
+            System.out.println("Increased revenue is: " + increased_revenue);
 
             String update2 = "UPDATE Listings SET price = price + '" + increased_revenue + "' WHERE LID = " + LID;
     

@@ -30,7 +30,8 @@ public class Retrieve {
                 System.out.println("The amenities it offers: " + rs.getString(10));
                 System.out.println("Number of bedrooms: " + rs.getInt(11));
                 System.out.println("Number of bathrooms: " + rs.getInt(12));
-                System.out.println("Number of beds: " + rs.getString(13));
+                System.out.println("Number of beds: " + rs.getInt(13));
+                System.out.println("Price: " + rs.getInt(14));
                 System.out.println("----------------------------------------");
                 System.out.println();
             }

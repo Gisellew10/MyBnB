@@ -58,8 +58,12 @@ public class ListingInput {
             System.out.print("Enter the number of beds: ");
             int bed = inputBed.nextInt();
 
+            Scanner inputPrice= new Scanner(System.in);
+            System.out.print("Enter the approximately price: ");
+            int price = inputPrice.nextInt();
 
-            InsertListing myListing = new InsertListing(HostID, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed);
+
+            InsertListing myListing = new InsertListing(HostID, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed, price);
             boolean result = myListing.createListing();
 
 
@@ -71,7 +75,7 @@ public class ListingInput {
             rs = stmt.executeQuery(query);
 
             System.out.println();
-            
+
             if(rs.next()){
                 System.out.println("The listing ID is: " + rs.getInt(1));
             }
