@@ -21,43 +21,6 @@ public class Delete {
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);
 
-            String copy = UserID;
-            String[] tokens = copy.split("-");
-
-
-            Connection con2 = null;
-            ResultSet rs2 = null;
-            String query = null;
-
-            if(tokens[0].equals("Renter")){
-                query = "SELECT Booking_ID FROM RentalHistory WHERE RenterID = '" + UserID + "' AND date >= '" + delete_date + "'";
-                con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
-                Statement stmt2 = con2.createStatement();
-                rs2 = stmt2.executeQuery(query);
-    
-                while(rs2.next()){
-                    String Booking_ID = rs2.getString(1);
-                    CancelBooking(UserID, Booking_ID, delete_date);
-                }
-
-                String delete = "DELETE FROM PaymentInfo WHERE RenterID = '" + UserID + "'";
-                Connection con3 = null;
-                con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
-                Statement stmt3 = con3.createStatement();
-                boolean success = stmt3.execute(delete);
-
-            }else if(tokens[0].equals("Host")){
-                query = "SELECT LID from Listings WHERE HostID = '" + UserID + "'";
-                con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
-                Statement stmt2 = con2.createStatement();
-                rs2 = stmt2.executeQuery(query);
-    
-                while(rs2.next()){
-                    String LID = rs2.getString(1);
-                    RemoveListing(UserID, LID);
-                }
-            }
-
             success = ps.execute();
             System.out.println("User was successfully deleted!");
 
@@ -100,11 +63,6 @@ public class Delete {
                     return false;
                 }
 
-                Connection con2 = null;
-                String sql = "DELETE FROM RentalHistory WHERE Booking_ID = '" + Booking_ID + "'";
-                
-                con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
-                PreparedStatement ps = con2.prepareStatement(sql);
 
                 String update = "UPDATE Availability SET availability = 'available' WHERE date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'";
 
@@ -116,13 +74,8 @@ public class Delete {
                 Cancellation mycancellation = new Cancellation(Booking_ID, LID, UserID, cancellation_date, start_date, end_date);
                 boolean result = mycancellation.recordCancellation();
 
-
-                success = ps.execute();
                 System.out.println("Booking was successfully canceled!");
 
-                ps.close();
-                con.close();
-                con2.close();
                 con3.close();
             }else{
                 System.out.println("Booking was not successfully canceled!");
@@ -163,29 +116,12 @@ public class Delete {
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);
 
-            Connection con2 = null;
-            String sql2 = "DELETE FROM RentalHistory WHERE LID = '" + LID +"'";
-            
-            con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
-            PreparedStatement ps2 = con2.prepareStatement(sql2);
-            ps2.execute();
-
-            Connection con3 = null;
-            String sql3 = "DELETE FROM Availability WHERE LID = '" + LID +"'";
-            
-            con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
-            PreparedStatement ps3 = con3.prepareStatement(sql3);
-            ps3.execute();
-
-
             System.out.println("Listing was successfully removed!");
 
             success = ps.execute();
 
             ps.close();
             con.close();
-            con2.close();
-            con3.close();
 
         }
         catch(SQLException e){
