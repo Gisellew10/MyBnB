@@ -3,11 +3,10 @@ import java.sql.*;
 public class HostToolkit {
     private static final String CONNECTION = "jdbc:mysql://localhost:3306/mybnb"; 
 
-    public double SuggestPrice(int LID) throws ClassNotFoundException{
+    public void SuggestPrice(int LID) throws ClassNotFoundException{
         Class.forName("com.mysql.cj.jdbc.Driver");
         final String USER = "root";
         final String PASS = "giselle";
-        int suggest_price = 0;
 
         try{
             String sql = "SELECT bedroom, bathroom, city, country FROM Listings WHERE LID = '" + LID + "'";
@@ -32,8 +31,10 @@ public class HostToolkit {
                 Statement stmt2 = con.createStatement();
                 rs2 = stmt2.executeQuery(sql2);
 
+                int suggest_price = 0;
+
                 if(rs2.next()){
-                    int base_price = rs.getInt(1);
+                    int base_price = rs2.getInt(1);
                     //increase one bedroom will increase 20% of price
                     //increase one bathroom will increase 10% of price
                     suggest_price = (int) (base_price + (base_price * 0.2) * (bedroom -1) + (base_price * 0.1) * (bathroom -1));
@@ -47,7 +48,7 @@ public class HostToolkit {
         catch(SQLException e){
             e.printStackTrace();
         }
-        return suggest_price;
+        return;
     }
 
 
@@ -76,6 +77,7 @@ public class HostToolkit {
             while(rs.next()){
                 System.out.println("amenities: " + rs.getString(1));
             }
+            System.out.println();
         }
 
         catch(SQLException e){

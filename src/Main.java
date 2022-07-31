@@ -64,6 +64,7 @@ public class Main {
 
             System.out.println("Bye!");
             System.out.println();
+            return;
         }
 
         if(create_input == 1){
