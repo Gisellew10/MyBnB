@@ -30,7 +30,7 @@ public class Delete {
             String query = null;
 
             if(tokens[0].equals("Renter")){
-                query = "SELECT Booking_ID from RentalHistory WHERE RenterID = '" + UserID + "' AND date >= '" + delete_date + "'";
+                query = "SELECT Booking_ID FROM RentalHistory WHERE RenterID = '" + UserID + "' AND date >= '" + delete_date + "'";
                 con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
                 Statement stmt2 = con2.createStatement();
                 rs2 = stmt2.executeQuery(query);
@@ -39,6 +39,13 @@ public class Delete {
                     String Booking_ID = rs2.getString(1);
                     CancelBooking(UserID, Booking_ID, delete_date);
                 }
+
+                String delete = "DELETE FROM PaymentInfo WHERE RenterID = '" + UserID + "'";
+                Connection con3 = null;
+                con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
+                Statement stmt3 = con3.createStatement();
+                boolean success = stmt3.execute(delete);
+
             }else if(tokens[0].equals("Host")){
                 query = "SELECT LID from Listings WHERE HostID = '" + UserID + "'";
                 con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
