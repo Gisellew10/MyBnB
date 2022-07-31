@@ -10,6 +10,9 @@ public class ListingInput {
         final String USER = "root";
         final String PASS = "giselle";
         try{
+            Scanner inputtitle = new Scanner(System.in);
+            System.out.print("Enter the title: ");
+            String title = inputtitle.nextLine();
 
             Scanner inputtype = new Scanner(System.in);
             System.out.print("Enter the type: ");
@@ -63,7 +66,7 @@ public class ListingInput {
             int price = inputPrice.nextInt();
 
 
-            InsertListing myListing = new InsertListing(HostID, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed, price);
+            InsertListing myListing = new InsertListing(HostID, title,type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed, price);
             boolean result = myListing.createListing();
 
 

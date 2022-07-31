@@ -20,18 +20,19 @@ public class Retrieve {
             while(rs.next()){
                 System.out.println("The listing ID is: " + rs.getInt(1));
                 System.out.println("The host ID is: " + rs.getString(2));
-                System.out.println("The type of listing is: " + rs.getString(3));
-                System.out.println("Its latitude is: " + rs.getDouble(4));
-                System.out.println("Its longtitude is: " + rs.getDouble(5));
-                System.out.println("Its address is: " + rs.getString(6));
-                System.out.println("The city of listing is: " + rs.getString(7));
-                System.out.println("The country of listing is: " + rs.getString(8));
-                System.out.println("Its postal code is: " + rs.getString(9));
-                System.out.println("The amenities it offers: " + rs.getString(10));
-                System.out.println("Number of bedrooms: " + rs.getInt(11));
-                System.out.println("Number of bathrooms: " + rs.getInt(12));
-                System.out.println("Number of beds: " + rs.getInt(13));
-                System.out.println("Price: $" + rs.getInt(14));
+                System.out.println("The title of listing is: " + rs.getString(3));
+                System.out.println("The type of listing is: " + rs.getString(4));
+                System.out.println("Its latitude is: " + rs.getDouble(5));
+                System.out.println("Its longtitude is: " + rs.getDouble(6));
+                System.out.println("Its address is: " + rs.getString(7));
+                System.out.println("The city of listing is: " + rs.getString(8));
+                System.out.println("The country of listing is: " + rs.getString(9));
+                System.out.println("Its postal code is: " + rs.getString(10));
+                System.out.println("The amenities it offers: " + rs.getString(11));
+                System.out.println("Number of bedrooms: " + rs.getInt(12));
+                System.out.println("Number of bathrooms: " + rs.getInt(13));
+                System.out.println("Number of beds: " + rs.getInt(14));
+                System.out.println("Price: $" + rs.getInt(15));
                 System.out.println("----------------------------------------");
                 System.out.println();
             }

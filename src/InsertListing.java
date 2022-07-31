@@ -4,6 +4,7 @@ public class InsertListing{
     private static final String CONNECTION = "jdbc:mysql://localhost:3306/mybnb"; 
 
     private String HostID;
+    private String title;
     private String type;
     private double latitude;
     private double longtitude;
@@ -18,8 +19,9 @@ public class InsertListing{
     private int price;
     private boolean success;
 
-    public InsertListing(String HostID, String type, double latitude, double longtitude, String address, String city, String country, String postal_code, String amenities, int bedroom, int bathroom, int bed, int price){
+    public InsertListing(String HostID, String title, String type, double latitude, double longtitude, String address, String city, String country, String postal_code, String amenities, int bedroom, int bathroom, int bed, int price){
         this.HostID = HostID;
+        this.title = title;
         this.type = type;
         this.latitude = latitude;
         this.longtitude = longtitude;
@@ -39,25 +41,26 @@ public class InsertListing{
         final String PASS = "giselle";
         try{
             Connection con = null;
-            String sql = "INSERT INTO Listings (HostID, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed, price) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Listings (HostID, title, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed, price) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);
 
             con.setAutoCommit(false);
             ps.setString(1, this.HostID);
-            ps.setString(2, this.type);
-            ps.setDouble(3, this.latitude);
-            ps.setDouble(4, this.longtitude);
-            ps.setString(5, this.address);
-            ps.setString(6, this.city);
-            ps.setString(7, this.country);
-            ps.setString(8, this.postal_code);
-            ps.setString(9, this.amenities);
-            ps.setInt(10, this.bedroom);
-            ps.setInt(11, this.bathroom);
-            ps.setInt(12, this.bed);
-            ps.setInt(13, this.price);
+            ps.setString(2, this.title);
+            ps.setString(3, this.type);
+            ps.setDouble(4, this.latitude);
+            ps.setDouble(5, this.longtitude);
+            ps.setString(6, this.address);
+            ps.setString(7, this.city);
+            ps.setString(8, this.country);
+            ps.setString(9, this.postal_code);
+            ps.setString(10, this.amenities);
+            ps.setInt(11, this.bedroom);
+            ps.setInt(12, this.bathroom);
+            ps.setInt(13, this.bed);
+            ps.setInt(14, this.price);
 
             success = ps.execute();
 
