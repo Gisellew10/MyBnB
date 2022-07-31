@@ -9,7 +9,7 @@ public class HostToolkit {
         final String PASS = "giselle";
 
         try{
-            String sql = "SELECT bedroom, bathroom, city, country FROM Listings WHERE LID = '" + LID + "'";
+            String sql = "SELECT bedroom, bathroom, city, country, amenities FROM Listings WHERE LID = '" + LID + "'";
             Connection con = null;
             ResultSet rs = null;
 
@@ -22,6 +22,7 @@ public class HostToolkit {
                 int bathroom = rs.getInt(2);
                 String city = rs.getString(3);
                 String country = rs.getString(4);
+                String amenities = rs.getString(5);
 
                 String sql2 = "SELECT price FROM PriceData WHERE city = '" + city + "' AND country = '" + country + "'";
                 Connection con2 = null;
@@ -37,7 +38,16 @@ public class HostToolkit {
                     int base_price = rs2.getInt(1);
                     //increase one bedroom will increase 20% of price
                     //increase one bathroom will increase 10% of price
+                    //for every amenities you add, you increased 5% of price
                     suggest_price = (int) (base_price + (base_price * 0.2) * (bedroom -1) + (base_price * 0.1) * (bathroom -1));
+
+                    String[] tokens = amenities.split(",");
+                    int increased_revenue = 0;
+                    for(String t : tokens){
+                        increased_revenue = (int) (increased_revenue + (suggest_price * 0.05));
+                    }
+
+                    suggest_price = suggest_price + increased_revenue;
 
                     System.out.println();
                     System.out.println("Suggested price: $" + suggest_price);
