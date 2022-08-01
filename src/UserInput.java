@@ -98,11 +98,6 @@ public class UserInput {
                 System.out.print("Enter the cvc number: ");
                 CVC = inputCVC.nextInt();
     
-                inputCreditCard_Num.close();
-                inputExpDate.close();
-                inputPostal.close();
-                inputCVC.close();
-    
             }
     
             String UserID;

@@ -95,97 +95,97 @@ public class Queries {
             //rank by price
             if(RankByPrice.equals("Yes") && availability.equals("No") && amenities_filter.equals("No") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //rank by price + availability filter
             else if(RankByPrice.equals("Yes") && availability.equals("Yes") && amenities_filter.equals("No") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
             
             //availability filter
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("No") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings LJOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //amenities filter
             else if(RankByPrice.equals("No") && availability.equals("No") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE amenities IN ('"+ amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND amenities IN ('"+ amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //price range filter
             else if(RankByPrice.equals("No") && availability.equals("No") && amenities_filter.equals("No") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //rank by price + amenities
             else if(RankByPrice.equals("Yes") && availability.equals("No") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE amenities IN ('"+ amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND amenities IN ('"+ amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //rank by price + price range
             else if(RankByPrice.equals("Yes") && availability.equals("No") && amenities_filter.equals("No") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //availability + amenities
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + "amenities IN ('" + amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + "amenities IN ('" + amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
             
             //availability + price range
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("No") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //amenities + price range
             else if(RankByPrice.equals("No") && availability.equals("No") && amenities_filter.equals("Yes") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE amenities IN ('"+ amenities + "') AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND amenities IN ('"+ amenities + "') AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //rank by price + availability + amenities
             else if(RankByPrice.equals("Yes") && availability.equals("Yes") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'AND amenities IN ('"+ amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'AND amenities IN ('"+ amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //rank by price + amenities + price range
             else if(RankByPrice.equals("Yes") && availability.equals("No") && amenities_filter.equals("Yes") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND amenities IN ('"+ amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND amenities IN ('"+ amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //rank by price + availability + price range
             else if(RankByPrice.equals("Yes") && availability.equals("Yes") && amenities_filter.equals("No") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //availability + amenities + price range
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND amenities IN ('" + amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND amenities IN ('" + amenities + "') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //apply all
             else if(RankByPrice.equals("Yes") && availability.equals("Yes") && amenities_filter.equals("Yes") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE amenities IN ('" + amenities + "') AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND availability =  'available'  AND date BETWEEN '" + start_date + "' AND '" + end_date + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND amenities IN ('" + amenities + "') AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND availability =  'available'  AND date BETWEEN '" + start_date + "' AND '" + end_date + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //no filter and rank
             else{
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + "AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE" + get_distance + "< '" + distance + "'" + "GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY distance_in_km ASC";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + "AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND " + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY distance_in_km ASC";
             }
 
             System.out.println();
@@ -316,97 +316,97 @@ public class Queries {
             //rank by price
             if(RankByPrice.equals("Yes") && availability.equals("No") && amenities_filter.equals("No") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //rank by price + availability filter
             else if(RankByPrice.equals("Yes") && availability.equals("Yes") && amenities_filter.equals("No") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< 5.0'"  + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
             
             //availability filter
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("No") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings LJOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //amenities filter
             else if(RankByPrice.equals("No") && availability.equals("No") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE amenities IN ('"+ amenities + "') AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND amenities IN ('"+ amenities + "') AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //price range filter
             else if(RankByPrice.equals("No") && availability.equals("No") && amenities_filter.equals("No") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< 5.0" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //rank by price + amenities
             else if(RankByPrice.equals("Yes") && availability.equals("No") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE amenities IN ('"+ amenities + "') AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND amenities IN ('"+ amenities + "') AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //rank by price + price range
             else if(RankByPrice.equals("Yes") && availability.equals("No") && amenities_filter.equals("No") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //availability + amenities
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + "amenities IN ('" + amenities + "') AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + "amenities IN ('" + amenities + "') AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
             
             //availability + price range
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("No") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< 5.0'"+ "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //amenities + price range
             else if(RankByPrice.equals("No") && availability.equals("No") && amenities_filter.equals("Yes") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE amenities IN ('"+ amenities + "') AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND amenities IN ('"+ amenities + "') AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //rank by price + availability + amenities
             else if(RankByPrice.equals("Yes") && availability.equals("Yes") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'AND amenities IN ('"+ amenities + "') AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'AND amenities IN ('"+ amenities + "') AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //rank by price + amenities + price range
             else if(RankByPrice.equals("Yes") && availability.equals("No") && amenities_filter.equals("Yes") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND amenities IN ('"+ amenities + "') AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND amenities IN ('"+ amenities + "') AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //rank by price + availability + price range
             else if(RankByPrice.equals("Yes") && availability.equals("Yes") && amenities_filter.equals("No") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //availability + amenities + price range
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND amenities IN ('" + amenities + "') AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND amenities IN ('" + amenities + "') AND" + get_distance + "< 5.0'"+ "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //apply all
             else if(RankByPrice.equals("Yes") && availability.equals("Yes") && amenities_filter.equals("Yes") && price_filter.equals("Yes")){
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + " AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE amenities IN ('" + amenities + "') AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND availability =  'available'  AND date BETWEEN '" + start_date + "' AND '" + end_date + "' AND" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY AVG(price) " + Rank;
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND amenities IN ('" + amenities + "') AND price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND availability =  'available'  AND date BETWEEN '" + start_date + "' AND '" + end_date + "' AND" + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY AVG(A.price) " + Rank;
             }
 
             //no filter and rank
             else{
 
-                query = "SELECT LID, type, address, city, country, postal_code, amenities, AVG(price), " + get_distance + "AS distance_in_km FROM Listings NATURAL JOIN Availability WHERE" + get_distance + "< 5.0 GROUP BY  LID, type, address, city, country, postal_code, amenities ORDER BY distance_in_km ASC";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + "AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND " + get_distance + "< 5.0'" + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY distance_in_km ASC";
             }
 
 
