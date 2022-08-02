@@ -33,7 +33,7 @@ public class RentalHistoryInput{
             String date_s = inputdate.nextLine();
             Date date = Date.valueOf(date_s);
 
-            String query = "SELECT address, city, country, AVG(A.price), HostID FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND LID = '" + LID + "' GROUP BY address, city, country, HostID" ;
+            String query = "SELECT address, city, country, AVG(A.price), A.HostID FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND A.LID = '" + LID + "' GROUP BY address, city, country, A.HostID" ;
 
 
             Connection con = null;
@@ -62,7 +62,23 @@ public class RentalHistoryInput{
                 UUID uuid = UUID.randomUUID();
                 Booking_ID = "Booking"+ "-" + uuid;
 
-                //need to have 'check' to check the listing is available
+                //need to check if the listing is available in the date range
+                Connection con0 = null;
+                ResultSet rs0 = null;
+                String query0 = "SELECT availability FROM Availability WHERE LID = " + LID + " AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'";
+    
+                con0 = DriverManager.getConnection(CONNECTION,USER,PASS);
+                Statement stmt0 = con0.createStatement();
+                rs0 = stmt0.executeQuery(query0);
+    
+                while(rs0.next()){
+                    String availability = rs0.getString(1);
+    
+                    if(availability.equals("unavailable")){
+                        System.out.println("Error! This listing is booked!");
+                        return;
+                    }
+                }
 
                 RentalHistory myRentalHistory= new RentalHistory(Booking_ID, LID, HostID, RenterID, date, address, city, country, price, start_date, end_date);
                 result = myRentalHistory.createRentalHistory();
