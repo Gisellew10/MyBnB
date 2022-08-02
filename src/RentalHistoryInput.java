@@ -33,7 +33,7 @@ public class RentalHistoryInput{
             String date_s = inputdate.nextLine();
             Date date = Date.valueOf(date_s);
 
-            String query = "SELECT address, city, country, AVG(price), HostID FROM Listings NATURAL JOIN Availability WHERE LID = '" + LID + "' GROUP BY address, city, country, HostID" ;
+            String query = "SELECT address, city, country, AVG(A.price), HostID FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND LID = '" + LID + "' GROUP BY address, city, country, HostID" ;
 
 
             Connection con = null;
@@ -72,7 +72,7 @@ public class RentalHistoryInput{
 
             //update Availability
 
-            String update = "UPDATE Availability SET availability = 'unavailable' WHERE date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'";
+            String update = "UPDATE Availability SET availability = 'unavailable' WHERE LID = " + LID +" AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'";
 
 
             Connection con2 = null;
