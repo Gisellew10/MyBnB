@@ -70,7 +70,7 @@ public class CommentInput{
                 result = mycomment.createComment();
             }else{
                 System.out.println();
-                System.out.println("Error! Reviewer can only comment on the Reviewe/Listing that has rented the listed place.");
+                System.out.println("Error! Reviewer can only comment on the Reviewe/Listing that has rented the listed place for a completed stay recently.");
                 return;
             }
     

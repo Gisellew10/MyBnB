@@ -21,6 +21,27 @@ public class Delete {
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);
 
+            Connection con1 = null;
+            String sql1 = "SELECT LID, start_date, end_date FROM RentalHistory WHERE RenterID = '" + UserID + "'";
+
+            con1 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            PreparedStatement ps1 = con1.prepareStatement(sql1);
+            ResultSet rs1 = ps1.executeQuery();
+
+            while(rs1.next()){
+                int LID = rs1.getInt(1);
+                Date start_date = rs1.getDate(2);
+                Date end_date = rs1.getDate(3);
+    
+                String update = "UPDATE Availability SET availability = 'available' WHERE date > '"+ delete_date + "' AND LID = " + LID + " AND date BETWEEN '" + start_date +"' AND '" + end_date +"'";
+    
+                Connection con3 = null;
+                con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
+                Statement stmt2 = con3.createStatement();
+                stmt2.executeUpdate(update);
+            }
+
+
             success = ps.execute();
             System.out.println("User was successfully deleted!");
 
@@ -62,6 +83,13 @@ public class Delete {
                     System.out.println("Error! Booking can only cancel by related host/renter!");
                     return false;
                 }
+
+                Connection con2 = null;
+                String sql = "DELETE FROM RentalHistory WHERE Booking_ID = '" + Booking_ID + "'";
+
+                con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+                PreparedStatement ps = con2.prepareStatement(sql);
+                ps.execute();
 
 
                 String update = "UPDATE Availability SET availability = 'available' WHERE date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'";
@@ -108,6 +136,9 @@ public class Delete {
                     System.out.println("Error! Listing can only remove by related host!");
                     return false;
                 }
+            }else{
+                System.out.println("No listing found!");
+                return false;
             }
 
             Connection con = null;

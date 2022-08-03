@@ -69,6 +69,8 @@ public class Retrieve {
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
 
+            System.out.println("---Rental History---");
+
             while(rs.next()){
                 System.out.println("The booking ID is: " + rs.getString(1));
                 System.out.println("The listing ID is: " + rs.getInt(2));

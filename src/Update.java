@@ -27,7 +27,7 @@ public class Update {
 
             Connection con0 = null;
             ResultSet rs0 = null;
-            String query0 = "SELECT availability FROM Availability WHERE LID = " + LID + " AND date = '" + date + "'";
+            String query0 = "SELECT availability, HostID FROM Availability WHERE LID = " + LID + " AND date = '" + date + "'";
 
             con0 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt0 = con0.createStatement();
@@ -35,6 +35,12 @@ public class Update {
 
             if(rs0.next()){
                 String availability = rs0.getString(1);
+                String HostID = rs0.getString(2);
+
+                if(!(UserID.equals(HostID))){
+                    System.out.println("Error! Price can only be changed by related host!");
+                    return;
+                }
 
                 if(availability.equals("unavailable")){
                     System.out.println("Error! Price cannot be changed after it is booked!");
@@ -43,14 +49,14 @@ public class Update {
             }
 
 
-            String update = "UPDATE Availability SET price = " + price + "WHERE LID = " + LID + " AND date = '" + date + "'";
+            String update = "UPDATE Availability SET price = " + price + " WHERE LID = " + LID + " AND date = '" + date + "'";
 
             Connection con = null;
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             stmt.executeUpdate(update);
 
-            String update2 = "UPDATE Listings SET price = " + price + "WHERE LID = " + LID;
+            String update2 = "UPDATE Listings SET price = " + price + " WHERE LID = " + LID;
 
             Connection con2 = null;
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
@@ -86,7 +92,7 @@ public class Update {
 
             Connection con0 = null;
             ResultSet rs0 = null;
-            String query0 = "SELECT availability FROM Availability WHERE EXISTS (SELECT * FROM RentalHistory WHERE LID = " + LID + " AND '" + date + "' BETWEEN start_date AND end_date) AND LID = " + LID + " AND date = '" + date + "'";
+            String query0 = "SELECT availability, HostID FROM Availability WHERE EXISTS (SELECT * FROM RentalHistory WHERE LID = " + LID + " AND '" + date + "' BETWEEN start_date AND end_date) AND LID = " + LID + " AND date = '" + date + "'";
 
             con0 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt0 = con0.createStatement();
@@ -94,6 +100,12 @@ public class Update {
 
             if(rs0.next()){
                 String availability_check = rs0.getString(1);
+                String HostID = rs0.getString(2);
+
+                if(!(UserID.equals(HostID))){
+                    System.out.println("Error! Availability can only be changed by related host!");
+                    return;
+                }
 
                 if(availability_check.equals("unavailable")){
                     System.out.println("Error! Availability cannot be changed after it is booked!");
@@ -143,6 +155,13 @@ public class Update {
                 type = rs.getString(1);
                 amenities = rs.getString(2);
                 price = rs.getInt(3);
+
+                String HostID = rs.getString(4);
+
+                if(!(UserID.equals(HostID))){
+                    System.out.println("Error! Amenities can only be changed by related host!");
+                    return;
+                }
             }
 
             HostToolkit hostToolkit = new HostToolkit();
