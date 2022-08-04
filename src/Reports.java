@@ -328,7 +328,7 @@ public class Reports {
 
             Connection con3 = null;
             con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
-            Statement stmt3 = con.createStatement();
+            Statement stmt3 = con3.createStatement();
 
             System.out.println();
             System.out.println("---Most Popular Noun Phrases Associated With The Listing---");

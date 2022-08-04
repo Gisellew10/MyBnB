@@ -140,7 +140,7 @@ public class Update {
             int LID = inputLID.nextInt();
 
 
-            String query = "SELECT type, amenities, price FROM Listings WHERE LID = " + LID;
+            String query = "SELECT type, amenities, price, HostID FROM Listings WHERE LID = " + LID;
 
             ResultSet rs = null;
             Connection con = null;
@@ -157,6 +157,7 @@ public class Update {
                 price = rs.getInt(3);
 
                 String HostID = rs.getString(4);
+                String[] tokens = amenities.split(",");
 
                 if(!(UserID.equals(HostID))){
                     System.out.println("Error! Amenities can only be changed by related host!");
@@ -173,7 +174,7 @@ public class Update {
 
 
     
-            String update = "UPDATE Listings SET amenities = '" + amenities + amenities_new + "' WHERE LID = " + LID;
+            String update = "UPDATE Listings SET amenities = '" + amenities + "," + amenities_new + "' WHERE LID = " + LID;
     
             Connection con2 = null;
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
@@ -202,9 +203,6 @@ public class Update {
             con5 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt5 = con5.createStatement();
             stmt5.executeUpdate(update3);
-    
-            con.commit();
-            con.close();
     
             System.out.println("Amenities was successfully updated!");
 

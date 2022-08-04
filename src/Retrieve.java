@@ -17,6 +17,8 @@ public class Retrieve {
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
+
+            System.out.println("---List of Listings---");
             while(rs.next()){
                 System.out.println("The listing ID is: " + rs.getInt(1));
                 System.out.println("The host ID is: " + rs.getString(2));
