@@ -44,7 +44,7 @@ public class Reports {
 
             Connection con2 = null;
             ResultSet rs2 = null;
-            String query2 = "SELECT postal_code, city, COUNT(Booking_ID) FROM RentalHistory  NATURAL JOIN Listings WHERE date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' GROUP BY postal_code, city";
+            String query2 = "SELECT postal_code, R.city, COUNT(Booking_ID) FROM RentalHistory R JOIN Listings L WHERE R.LID = L.LID AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' GROUP BY postal_code, R.city";
 
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con2.createStatement();
