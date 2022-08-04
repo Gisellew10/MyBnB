@@ -51,6 +51,23 @@ public class HostToolkit {
 
                     System.out.println();
                     System.out.println("Suggested price: $" + suggest_price);
+                }else{
+                    int base_price = 150;
+                    //increase one bedroom will increase 20% of price
+                    //increase one bathroom will increase 10% of price
+                    //for every amenities you add, you increased 5% of price
+                    suggest_price = (int) (base_price + (base_price * 0.2) * (bedroom -1) + (base_price * 0.1) * (bathroom -1));
+
+                    String[] tokens = amenities.split(",");
+                    int increased_revenue = 0;
+                    for(String t : tokens){
+                        increased_revenue = (int) (increased_revenue + (suggest_price * 0.05));
+                    }
+
+                    suggest_price = suggest_price + increased_revenue;
+
+                    System.out.println();
+                    System.out.println("Suggested price: $" + suggest_price);
                 }
             }
         }
