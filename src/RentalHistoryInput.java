@@ -33,7 +33,7 @@ public class RentalHistoryInput{
             String date_s = inputdate.nextLine();
             Date date = Date.valueOf(date_s);
 
-            String query = "SELECT address, city, country, AVG(A.price), A.HostID FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND A.LID = '" + LID + "' GROUP BY address, city, country, A.HostID" ;
+            String query = "SELECT address, city, country, AVG(A.price), A.HostID FROM Listings L JOIN Availability A ON L.LID = A.LID WHERE A.LID = '" + LID + "' GROUP BY address, city, country, A.HostID" ;
 
 
             Connection con = null;

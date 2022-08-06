@@ -1,12 +1,18 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws ClassNotFoundException{
-        int year = 2022;
+    public static void main(String[] args) throws ClassNotFoundException, IOException{
 
         System.out.println();
         System.out.println("Hello and Welcome to Airbnb!");
         System.out.println();
+        
+        Scanner yearInput = new Scanner(System.in);
+        System.out.print("Please Enter the year: ");
+        int year = yearInput.nextInt();
+        System.out.println();
+
         System.out.println("1. Create an Account");
         System.out.println("2. Login to Existing Account");
         System.out.println("3. Run reports");

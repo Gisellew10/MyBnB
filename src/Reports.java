@@ -1,5 +1,17 @@
 import java.sql.*;
 import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
+
+import opennlp.tools.cmdline.parser.ParserTool;
+import opennlp.tools.parser.Parse;
+import opennlp.tools.parser.Parser;
+import opennlp.tools.parser.ParserFactory;
+import opennlp.tools.parser.ParserModel;
+
 
 public class Reports {
     private static final String CONNECTION = "jdbc:mysql://localhost:3306/mybnb"; 
@@ -152,18 +164,37 @@ public class Reports {
         try{
             Connection con = null;
             ResultSet rs = null;
-            String query = "SELECT UserID, first_name, last_name, city, country, COUNT(LID) FROM Listings JOIN Users WHERE UserID = HostID GROUP BY UserID, first_name, last_name, city, country ORDER BY COUNT(LID) DESC ";
+            String query = "SELECT UserID, first_name, last_name,country,COUNT(LID) FROM Listings JOIN Users ON UserID = HostID GROUP BY UserID, first_name, last_name, country ORDER BY country,COUNT(LID) DESC";
 
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
 
 
-            System.out.println("---Rank The Hosts Report---");
+            System.out.println("---Rank The Hosts by Country Report---");
             System.out.println();
 
             while(rs.next()){
-                System.out.println("Host ID: " + rs.getString(1) + "   " + "Host Name: " + rs.getString(2) + " " +rs.getString(3) + "   " + "City: " + rs.getString(4) + "   " + "Country: " + rs.getString(5) + "   " + "Number of listings: " + rs.getInt(6)) ;
+                System.out.println("Host ID: " + rs.getString(1) + "   " + "Host Name: " + rs.getString(2) + " " +rs.getString(3) +  "   " + "Country: " + rs.getString(4) + "   " + "Number of listings: " + rs.getInt(5)) ;
+                System.out.println();
+            }
+
+            //by city
+            Connection con2 = null;
+            ResultSet rs2 = null;
+            String query2 = "SELECT UserID, first_name, last_name, city, COUNT(LID) FROM Listings JOIN Users ON UserID = HostID GROUP BY UserID, first_name, last_name, city ORDER BY city,COUNT(LID) DESC";
+
+            con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt2 = con2.createStatement();
+            rs2 = stmt2.executeQuery(query2);
+
+            System.out.println();
+
+            System.out.println("---Rank The Hosts by City Report---");
+            System.out.println();
+
+            while(rs2.next()){
+                System.out.println("Host ID: " + rs2.getString(1) + "   " + "Host Name: " + rs2.getString(2) + " " +rs2.getString(3) +  "   " + "City: " + rs2.getString(4) + "   " + "Number of listings: " + rs2.getInt(5)) ;
                 System.out.println();
             }
 
@@ -187,7 +218,7 @@ public class Reports {
         try{
             Connection con = null;
             ResultSet rs = null;
-            String query = "SELECT UserID, first_name, last_name, city, country FROM Listings L1 JOIN Users WHERE UserID = HostID GROUP BY UserID, city, country HAVING (count(*) / (SELECT COUNT(LID) FROM Listings L2 WHERE L1.city = L2.city AND L1.country = L2.country))  > 0.1 ";
+            String query = "SELECT UserID, first_name, last_name, city, country FROM Listings L1 JOIN Users ON UserID = HostID GROUP BY UserID, city, country HAVING (count(*) / (SELECT COUNT(LID) FROM Listings L2 WHERE L1.city = L2.city AND L1.country = L2.country))  > 0.1 ";
 
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
@@ -235,7 +266,7 @@ public class Reports {
 
             Connection con = null;
             ResultSet rs = null;
-            String query = "SELECT RenterID, first_name, last_name, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE R.RenterID = U.UserID AND date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY RenterID, first_name, last_name ORDER BY COUNT(Booking_ID) DESC";
+            String query = "SELECT RenterID, first_name, last_name, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U ON R.RenterID = U.UserID WHERE date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY RenterID, first_name, last_name ORDER BY COUNT(Booking_ID) DESC";
 
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
@@ -253,7 +284,7 @@ public class Reports {
             Connection con2 = null;
             ResultSet rs2 = null;
 
-            String query2 = "SELECT RenterID, first_name, last_name, city, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U WHERE RenterID = UserID AND date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY RenterID, first_name, last_name, city HAVING (SELECT COUNT(Booking_ID) FROM RentalHistory WHERE (SELECT EXTRACT(YEAR FROM date)) = " + year + ") >= 2 ORDER BY COUNT(Booking_ID) DESC";
+            String query2 = "SELECT RenterID, first_name, last_name, city, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U ON RenterID = UserID WHERE date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY RenterID, first_name, last_name, city HAVING (SELECT COUNT(Booking_ID) FROM RentalHistory WHERE (SELECT EXTRACT(YEAR FROM date)) = " + year + ") >= 2 ORDER BY city, COUNT(Booking_ID) DESC";
 
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con2.createStatement();
@@ -287,7 +318,7 @@ public class Reports {
         try{
             Connection con = null;
             ResultSet rs = null;
-            String query = "SELECT C.UserID, first_name, last_name, COUNT(Booking_ID) FROM Cancellation C JOIN Users U WHERE C.UserID = U.UserID AND (SELECT EXTRACT(YEAR FROM cancellation_date)) = " + year + " GROUP BY C.UserID, first_name, last_name HAVING COUNT(Booking_ID) >= ALL(SELECT COUNT(Booking_ID) FROM Cancellation GROUP BY UserID) ";
+            String query = "SELECT C.UserID, first_name, last_name, COUNT(Booking_ID) FROM Cancellation C JOIN Users U ON C.UserID = U.UserID WHERE (SELECT EXTRACT(YEAR FROM cancellation_date)) = " + year + " GROUP BY C.UserID, first_name, last_name HAVING COUNT(Booking_ID) >= ALL(SELECT COUNT(Booking_ID) FROM Cancellation GROUP BY UserID) ";
 
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
@@ -311,11 +342,17 @@ public class Reports {
             e.printStackTrace();
         }
     }
+	
+	static Set<String> nounPhrases = new HashSet<>();
 
-    public void MostPopularNP() throws ClassNotFoundException{
+
+    public void MostPopularNP() throws ClassNotFoundException, IOException{
         Class.forName("com.mysql.cj.jdbc.Driver");
         final String USER = "root";
         final String PASS = "giselle";
+
+        InputStream modelInParse = null;
+
 
         try{
             Connection con = null;
@@ -338,26 +375,39 @@ public class Reports {
             con5 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt5 = con5.createStatement();
 
-            String sql2 = "CREATE TABLE CountWords (LID int, word varchar(30));";
+            String sql2 = "CREATE TABLE CountWords (LID int, word varchar(250));";
             stmt5.executeUpdate(sql2);
 
 
             while(rs.next()){
 
                 int LID = rs.getInt(1);
-                String comments = rs.getString(2);
+                String sentence = rs.getString(2);
 
-                String[] words_list = comments.split(" ");
-
-                for(String words : words_list){
-                    stmt3.executeUpdate("INSERT INTO CountWords VALUES (" + LID + ", '" + words + "')"); 
+                //load chunking model
+                modelInParse = new FileInputStream("en-parser-chunking.bin");
+                ParserModel model = new ParserModel(modelInParse);
+                
+                //create parse tree
+                Parser parser = ParserFactory.create(model);
+                Parse topParses[] = ParserTool.parseLine(sentence, parser, 1);
+                
+                //call subroutine to extract noun phrases
+                for (Parse p : topParses){
+                    getNounPhrases(p);
                 }
+			
+
+                for(String NP : nounPhrases){
+                    stmt3.executeUpdate("INSERT INTO CountWords VALUES (" + LID + ", '" + NP + "')"); 
+                }
+                nounPhrases.clear();
             }
 
 
             Connection con2 = null;
             ResultSet rs2 = null;
-            String query2 = "SELECT LID, word, COUNT(word) FROM CountWords WHERE word NOT IN ('very','and', 'a', 'the', 'an', 'am', 'is', 'are', 'were', 'was', 'of', 'at', 'as', 'by', 'on', ',', '.') GROUP BY LID, word ORDER BY COUNT(word) DESC LIMIT 5";
+            String query2 = "SELECT LID, word, COUNT(word) FROM CountWords GROUP BY LID, word ORDER BY COUNT(word) DESC LIMIT 5";
 
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con2.createStatement();
@@ -375,20 +425,31 @@ public class Reports {
 
             String sql = "DROP TABLE CountWords;";
             stmt4.executeUpdate(sql);
-
-            rs.close();
-            con.close();
-
-            rs2.close();
-            con2.close();
-
-            con3.close();
-            con4.close();
-
+  
 
         }
         catch(SQLException e){
             e.printStackTrace();
         }
+        finally {
+            if (modelInParse != null) {
+              try {
+                modelInParse.close();
+              }
+              catch (IOException e) {
+              }
+            }
+          }
     }
+
+
+    public static void getNounPhrases(Parse p) {
+			
+	    if (p.getType().equals("NP")) { //NP=noun phrase
+	         nounPhrases.add(p.getCoveredText());
+	    }
+	    for (Parse child : p.getChildren())
+	         getNounPhrases(child);
+	}
+
 }

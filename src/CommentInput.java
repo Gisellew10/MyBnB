@@ -43,7 +43,7 @@ public class CommentInput{
             String date_s = inputdate.nextLine();
             Date date = Date.valueOf(date_s);
     
-            String query = "SELECT min(start_date), RenterID, HostID FROM RentalHistory WHERE LID = '" + LID + "' GROUP BY RenterID, HostID" ;
+            String query = "SELECT min(start_date), RenterID, HostID FROM RentalHistory WHERE '" + Reviewer_ID + "' IN(RenterID, HostID) AND LID = '" + LID + "' GROUP BY RenterID, HostID" ;
     
     
             Connection con = null;
@@ -60,12 +60,16 @@ public class CommentInput{
                 start_date_s = rs.getDate(1);
                 RenterID = rs.getString(2);
                 HostID = rs.getString(3);
+            }else{
+                System.out.println();
+                System.out.println("Error! Reviewer can only comment on the Reviewe/Listing that has rented the listed place for a completed stay recently.");
+                return;
             }
 
             String start_date = String.valueOf(start_date_s);
             boolean result = true;
 
-            if(date_s.compareTo(start_date) > 0 && (RenterID.equals(Reviewe_ID) || RenterID.equals(Reviewer_ID)) && (HostID.equals(Reviewe_ID) || HostID.equals(Reviewer_ID))){
+            if((date_s.compareTo(start_date) > 0) && (RenterID.equals(Reviewe_ID) || RenterID.equals(Reviewer_ID)) && (HostID.equals(Reviewe_ID) || HostID.equals(Reviewer_ID))){
                 InsertComment mycomment = new InsertComment(LID, Reviewe_ID, Reviewer_ID, User_Comments, Listing_Comments, Listing_Rate, Reviewe_Rate, date);
                 result = mycomment.createComment();
             }else{
