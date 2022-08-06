@@ -98,7 +98,7 @@ public class Reports {
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
 
-
+            System.out.println();
             System.out.println("---Total Number Of Listings Per Country Report---");
             System.out.println();
 
@@ -115,6 +115,8 @@ public class Reports {
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con2.createStatement();
             rs2 = stmt2.executeQuery(query2);
+
+            System.out.println();
             
 
             System.out.println("---Total Number Of Listings Per Country and City Report---");
@@ -133,7 +135,7 @@ public class Reports {
             Statement stmt3 = con3.createStatement();
             rs3 = stmt3.executeQuery(query3);
             
-
+            System.out.println();
             System.out.println("---Total Number Of Listings Per Country, City, And Postal Code Report---");
             System.out.println();
 
