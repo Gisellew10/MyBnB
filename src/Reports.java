@@ -284,7 +284,7 @@ public class Reports {
             Connection con2 = null;
             ResultSet rs2 = null;
 
-            String query2 = "SELECT RenterID, first_name, last_name, city, COUNT(Booking_ID) FROM RentalHistory R JOIN Users U ON RenterID = UserID WHERE date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY RenterID, first_name, last_name, city HAVING (SELECT COUNT(Booking_ID) FROM RentalHistory WHERE (SELECT EXTRACT(YEAR FROM date)) = " + year + ") >= 2 ORDER BY city, COUNT(Booking_ID) DESC";
+            String query2 = "SELECT RenterID, first_name, last_name, city, COUNT(Booking_ID) FROM RentalHistory R1 JOIN Users U ON RenterID = UserID WHERE date BETWEEN '" + start_date + "' AND '" + end_date + "' GROUP BY RenterID, first_name, last_name, city HAVING (SELECT COUNT(Booking_ID) FROM RentalHistory R2 WHERE (SELECT EXTRACT(YEAR FROM date)) = " + year + " AND R1.RenterID = R2.RenterID) >= 2 ORDER BY city, COUNT(Booking_ID) DESC";
 
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con2.createStatement();
