@@ -33,7 +33,7 @@ public class RentalHistoryInput{
             String date_s = inputdate.nextLine();
             Date date = Date.valueOf(date_s);
 
-            String query = "SELECT address, city, country, AVG(A.price), A.HostID FROM Listings L JOIN Availability A ON L.LID = A.LID WHERE A.LID = '" + LID + "' GROUP BY address, city, country, A.HostID" ;
+            String query = "SELECT address, city, country, A.price, A.HostID FROM Listings L JOIN Availability A ON L.LID = A.LID WHERE A.LID = '" + LID + "' AND date BETWEEN '" + start_date + "' AND '" + end_date + "'" ;
 
 
             Connection con = null;
@@ -50,12 +50,11 @@ public class RentalHistoryInput{
             int price = 0;
             boolean result = true;
 
-            if(rs.next()){
+            while(rs.next()){
                 address = rs.getString(1);
                 city = rs.getString(2);
                 country = rs.getString(3);
-                price_tmp = rs.getDouble(4);
-                price = (int) price_tmp;
+                price = price + rs.getInt(4);
                 HostID = rs.getString(5);
 
                 String Booking_ID;

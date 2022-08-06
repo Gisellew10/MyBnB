@@ -18,6 +18,8 @@ public class Retrieve {
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
 
+            System.out.println();
+
             System.out.println("---List of Listings---");
             while(rs.next()){
                 System.out.println("The listing ID is: " + rs.getInt(1));
@@ -70,6 +72,7 @@ public class Retrieve {
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
+            System.out.println();
 
             System.out.println("---Rental History---");
 
@@ -82,7 +85,7 @@ public class Retrieve {
                 System.out.println("The city of listing is: " + rs.getString(6));
                 System.out.println("The country of listing is: " + rs.getString(7));
                 System.out.println("The date of transaction: " + rs.getDate(8));
-                System.out.println("Its price is: $" + rs.getInt(9));
+                System.out.println("Total price is: $" + rs.getInt(9));
                 System.out.println("Checkin: " + rs.getDate(10));
                 System.out.println("Checkout: " + rs.getDate(11));
                 System.out.println("----------------------------------------");
