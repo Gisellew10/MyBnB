@@ -309,8 +309,23 @@ public class Queries {
                 latitude = rs.getDouble(9);
                 longtitude = rs.getDouble(10);
             }else{
-                System.out.println("No listing found!");
-                return;
+                String compare[] = postal_code.split(" ");
+                String sql2 = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), latitude, longtitude FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND postal_code LIKE '" + compare[0] + "%'" + "GROUP BY A.LID, type, address, city, country, postal_code, amenities,latitude, longtitude";
+
+                Connection con2 = null;
+                ResultSet rs2 = null;
+    
+                con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+                Statement stmt2 = con2.createStatement();
+                rs2 = stmt2.executeQuery(sql2);
+
+                if(rs2.next()){
+                    latitude = rs2.getDouble(9);
+                    longtitude = rs2.getDouble(10);
+                }else{
+                    System.out.println("No listing found!");
+                    return;
+                }
             }
 
             String query;
@@ -416,20 +431,20 @@ public class Queries {
 
             System.out.println();
 
-            Connection con2 = null;
-            ResultSet rs2 = null;
+            Connection con3 = null;
+            ResultSet rs3 = null;
 
-            con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
-            Statement stmt2 = con2.createStatement();
-            rs2 = stmt2.executeQuery(query);
+            con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
+            Statement stmt3 = con3.createStatement();
+            rs3 = stmt3.executeQuery(query);
 
-            while(rs2.next()){
-                System.out.println("The listing ID is: " + rs2.getInt(1));
-                System.out.println("The type of listing is: " + rs2.getString(2));
-                System.out.println("Its address is: " + rs2.getString(3) + ", " + rs2.getString(4) + ", " + rs2.getString(5));
-                System.out.println("Its postal code is: " + rs2.getString(6));
-                System.out.println("The amenities it offers: " + rs2.getString(7));
-                int price = (int)rs.getDouble(8);
+            while(rs3.next()){
+                System.out.println("The listing ID is: " + rs3.getInt(1));
+                System.out.println("The type of listing is: " + rs3.getString(2));
+                System.out.println("Its address is: " + rs3.getString(3) + ", " + rs3.getString(4) + ", " + rs3.getString(5));
+                System.out.println("Its postal code is: " + rs3.getString(6));
+                System.out.println("The amenities it offers: " + rs3.getString(7));
+                int price = (int)rs3.getDouble(8);
                 System.out.println("The average price of listing is: $" + price);
                 System.out.println();
             }
