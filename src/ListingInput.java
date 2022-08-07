@@ -48,7 +48,6 @@ public class ListingInput {
             System.out.print("Enter the amenities: ");
             String amenities = inputamenities.nextLine();
 
-
             Scanner inputBedroom = new Scanner(System.in);
             System.out.print("Enter the number of bedrooms: ");
             int bedroom = inputBedroom.nextInt();
