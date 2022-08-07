@@ -24,7 +24,13 @@ public class CommentInput{
     
             Scanner inputListingRate = new Scanner(System.in);
             System.out.print("Please rate this listing (1-5): ");
-            int Listing_Rate = inputListingRate.nextInt();
+            String Listing_Rate_s = inputListingRate.nextLine();
+            int Listing_Rate = 0;
+            if(Listing_Rate_s.equals("NULL")){
+                Listing_Rate = -1;
+            }else{
+                Listing_Rate = Integer.valueOf(Listing_Rate_s);
+            }
     
             Scanner inputReviewe = new Scanner(System.in);
             System.out.print("Enter the User ID that you would like to comment: ");
@@ -36,14 +42,20 @@ public class CommentInput{
     
             Scanner inputRevieweRate = new Scanner(System.in);
             System.out.print("Please rate this user (1-5): ");
-            int Reviewe_Rate = inputRevieweRate.nextInt();
+            String Reviewe_Rate_s = inputRevieweRate.nextLine();
+            int Reviewe_Rate = 0;
+            if(Reviewe_Rate_s.equals("NULL")){
+                Reviewe_Rate = -1;
+            }else{
+                Reviewe_Rate = Integer.valueOf(Reviewe_Rate_s);
+            }
     
             Scanner inputdate = new Scanner(System.in);
             System.out.print("Enter the current date(YYYY-MM-DD): ");
             String date_s = inputdate.nextLine();
             Date date = Date.valueOf(date_s);
     
-            String query = "SELECT min(start_date), RenterID, HostID FROM RentalHistory WHERE '" + Reviewer_ID + "' IN(RenterID, HostID) AND LID = '" + LID + "' GROUP BY RenterID, HostID" ;
+            String query = "SELECT min(start_date), RenterID, HostID FROM RentalHistory WHERE '" + Reviewer_ID + "' IN(RenterID, HostID) AND '" + Reviewe_ID + "' IN(RenterID, HostID) AND LID = '" + LID + "' GROUP BY RenterID, HostID" ;
     
     
             Connection con = null;

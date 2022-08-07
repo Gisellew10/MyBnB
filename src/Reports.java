@@ -409,7 +409,7 @@ public class Reports {
 
             Connection con2 = null;
             ResultSet rs2 = null;
-            String query2 = "SELECT LID, word, COUNT(word) FROM CountWords GROUP BY LID, word ORDER BY COUNT(word) DESC LIMIT 5";
+            String query2 = "SELECT LID, word, COUNT(word) FROM CountWords WHERE word IS NOT NULL GROUP BY LID, word ORDER BY COUNT(word) DESC LIMIT 5";
 
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con2.createStatement();
