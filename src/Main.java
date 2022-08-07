@@ -15,7 +15,7 @@ public class Main {
 
         System.out.println("1. Create an Account");
         System.out.println("2. Login to Existing Account");
-        System.out.println("3. Run reports");
+        System.out.println("3. Run Reports");
         
         Scanner create = new Scanner(System.in);
         System.out.print("Please Enter your choice: ");
