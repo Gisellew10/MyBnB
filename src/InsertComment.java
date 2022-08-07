@@ -46,6 +46,9 @@ public class InsertComment{
                 ps.setDate(7, this.date);
     
                 success = ps.execute();
+                con.commit();
+                ps.close();
+                con.close();
             }else if(Listing_Rate != -1 && Reviewe_Rate == -1){
                 sql = "INSERT INTO Comments (LID, Reviewe_ID, Reviewer_ID, User_Comments, Listing_Comments, Listing_Rate, Reviewe_Rate, date) VALUES (?,?,?,?,?,?,NULL,?)";
 
@@ -62,6 +65,9 @@ public class InsertComment{
                 ps.setDate(7, this.date);
     
                 success = ps.execute();
+                con.commit();
+                ps.close();
+                con.close();
             }else if(Listing_Rate == -1 && Reviewe_Rate == -1){
                 sql = "INSERT INTO Comments (LID, Reviewe_ID, Reviewer_ID, User_Comments, Listing_Comments, Listing_Rate, Reviewe_Rate, date) VALUES (?,?,?,?,?,NULL,NULL,?)";
 
@@ -77,6 +83,9 @@ public class InsertComment{
                 ps.setDate(6, this.date);
     
                 success = ps.execute();
+                con.commit();
+                ps.close();
+                con.close();
             }else{
                 sql = "INSERT INTO Comments (LID, Reviewe_ID, Reviewer_ID, User_Comments, Listing_Comments, Listing_Rate, Reviewe_Rate, date) VALUES (?,?,?,?,?,?,?,?)";
 
@@ -92,20 +101,20 @@ public class InsertComment{
                 ps.setInt(6, this.Listing_Rate);
                 ps.setInt(7, this.Reviewe_Rate);
                 ps.setDate(8, this.date);
-    
+
                 success = ps.execute();
+                con.commit();
+                ps.close();
+                con.close();
             }
             
 
-            String update = "UPDATE Comments SET Listing_Comments = NULL WHERE Listing_Comments = ' '";
+            String update = "UPDATE Comments SET Listing_Comments = NULL WHERE Listing_Comments = '' ";
     
             Connection con2 = null;
             con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
             Statement stmt2 = con2.createStatement();
             stmt2.executeUpdate(update);
-
-            con.commit();
-            con.close();
 
         }
         catch(SQLException e){
