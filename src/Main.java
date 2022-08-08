@@ -180,7 +180,7 @@ public class Main {
             System.out.println();
             System.out.println("------Menu------");
             System.out.println("1. Book a listing");
-            System.out.println("2. Search for listings by latitude and longtitude");
+            System.out.println("2. Search for listings by latitude and longitude");
             System.out.println("3. Search for listings by postal code");
             System.out.println("4. Exact search by address");
             System.out.println("5. Cancel a booking");
