@@ -172,6 +172,7 @@ public class Reports {
             Statement stmt = con.createStatement();
             rs = stmt.executeQuery(query);
 
+            System.out.println();
 
             System.out.println("---Rank The Hosts by Country Report---");
             System.out.println();
