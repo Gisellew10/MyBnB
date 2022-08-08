@@ -33,7 +33,7 @@ public class RentalHistoryInput{
             String date_s = inputdate.nextLine();
             Date date = Date.valueOf(date_s);
 
-            String query = "SELECT address, city, country, A.price, A.HostID FROM Listings L JOIN Availability A ON L.LID = A.LID WHERE A.LID = '" + LID + "' AND date BETWEEN '" + start_date + "' AND '" + end_date + "'" ;
+            String query = "SELECT address, city, country, A.HostID FROM Listings L JOIN Availability A ON L.LID = A.LID WHERE A.LID = '" + LID + "' AND date BETWEEN '" + start_date + "' AND '" + end_date + "'" ;
 
 
             Connection con = null;
@@ -46,16 +46,15 @@ public class RentalHistoryInput{
             String city = null;
             String country = null;
             String HostID = null;
-            double price_tmp = 0;
             int price = 0;
             boolean result = true;
 
-            while(rs.next()){
+
+            if(rs.next()){
                 address = rs.getString(1);
                 city = rs.getString(2);
                 country = rs.getString(3);
-                price = price + rs.getInt(4);
-                HostID = rs.getString(5);
+                HostID = rs.getString(4);
 
                 String Booking_ID;
                 UUID uuid = UUID.randomUUID();
@@ -77,6 +76,18 @@ public class RentalHistoryInput{
                         System.out.println("Error! This listing is booked!");
                         return;
                     }
+                }
+
+                Connection con2 = null;
+                ResultSet rs2 = null;
+                String query2 = "SELECT price FROM Availability WHERE LID = '" + LID + "' AND date BETWEEN '" + start_date + "' AND '" + end_date + "'" ;
+    
+                con2 = DriverManager.getConnection(CONNECTION,USER,PASS);
+                Statement stmt2 = con2.createStatement();
+                rs2 = stmt2.executeQuery(query2);
+    
+                while(rs2.next()){
+                    price = price + rs2.getInt(1);
                 }
 
                 RentalHistory myRentalHistory= new RentalHistory(Booking_ID, LID, HostID, RenterID, date, address, city, country, price, start_date, end_date);
