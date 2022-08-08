@@ -7,7 +7,7 @@ public class InsertListing{
     private String title;
     private String type;
     private double latitude;
-    private double longtitude;
+    private double longitude;
     private String address;
     private String city;
     private String country;
@@ -19,12 +19,12 @@ public class InsertListing{
     private int price;
     private boolean success;
 
-    public InsertListing(String HostID, String title, String type, double latitude, double longtitude, String address, String city, String country, String postal_code, String amenities, int bedroom, int bathroom, int bed, int price){
+    public InsertListing(String HostID, String title, String type, double latitude, double longitude, String address, String city, String country, String postal_code, String amenities, int bedroom, int bathroom, int bed, int price){
         this.HostID = HostID;
         this.title = title;
         this.type = type;
         this.latitude = latitude;
-        this.longtitude = longtitude;
+        this.longitude = longitude;
         this.address = address;
         this.city = city;
         this.country = country;
@@ -41,7 +41,7 @@ public class InsertListing{
         final String PASS = "giselle";
         try{
             Connection con = null;
-            String sql = "INSERT INTO Listings (HostID, title, type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed, price) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Listings (HostID, title, type, latitude, longitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed, price) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             
             con = DriverManager.getConnection(CONNECTION,USER,PASS);
             PreparedStatement ps = con.prepareStatement(sql);
@@ -51,7 +51,7 @@ public class InsertListing{
             ps.setString(2, this.title);
             ps.setString(3, this.type);
             ps.setDouble(4, this.latitude);
-            ps.setDouble(5, this.longtitude);
+            ps.setDouble(5, this.longitude);
             ps.setString(6, this.address);
             ps.setString(7, this.city);
             ps.setString(8, this.country);

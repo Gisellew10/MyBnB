@@ -22,9 +22,9 @@ public class ListingInput {
             System.out.print("Enter the latitude: ");
             double latitude = inputtype.nextDouble();
 
-            Scanner inputlongtitude = new Scanner(System.in);
-            System.out.print("Enter the longtitude: ");
-            double longtitude = inputlongtitude.nextDouble();
+            Scanner inputlongitude = new Scanner(System.in);
+            System.out.print("Enter the longitude: ");
+            double longitude = inputlongitude.nextDouble();
 
             Scanner inputaddress = new Scanner(System.in);
             System.out.print("Enter the address: ");
@@ -65,7 +65,7 @@ public class ListingInput {
             int price = inputPrice.nextInt();
 
 
-            InsertListing myListing = new InsertListing(HostID, title,type, latitude, longtitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed, price);
+            InsertListing myListing = new InsertListing(HostID, title,type, latitude, longitude, address, city, country, postal_code, amenities, bedroom, bathroom, bed, price);
             boolean result = myListing.createListing();
 
 

@@ -16,9 +16,9 @@ public class Queries {
             System.out.print("Enter a latitude: ");
             double latitude = inputlatitude.nextDouble();
 
-            Scanner inputlongtitude = new Scanner(System.in);
-            System.out.print("Enter a longtitude: ");
-            double longtitude = inputlongtitude.nextDouble();
+            Scanner inputlongitude = new Scanner(System.in);
+            System.out.print("Enter a longitude: ");
+            double longitude = inputlongitude.nextDouble();
 
             Scanner inputdistance = new Scanner(System.in);
             System.out.print("Enter a preferred distance (default is 1.0 km): ");
@@ -90,7 +90,7 @@ public class Queries {
 
             String query;
 
-            String get_distance = "(111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(L.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(L.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(L.latitude)) * SIN(RADIANS('" +latitude + "'" + "))))))";
+            String get_distance = "(111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(L.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(L.longitude - '" + longitude + "'" + ")) + SIN(RADIANS(L.latitude)) * SIN(RADIANS('" +latitude + "'" + "))))))";
 
             //rank by price
             if(RankByPrice.equals("Yes") && availability.equals("No") && amenities_filter.equals("No") && price_filter.equals("No")){
@@ -293,7 +293,7 @@ public class Queries {
             }
 
 
-            String sql = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), latitude, longtitude FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND postal_code = '" + postal_code + "'" + "GROUP BY A.LID, type, address, city, country, postal_code, amenities,latitude, longtitude";
+            String sql = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), latitude, longitude FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND postal_code = '" + postal_code + "'" + "GROUP BY A.LID, type, address, city, country, postal_code, amenities,latitude, longitude";
 
             Connection con = null;
             ResultSet rs = null;
@@ -303,14 +303,14 @@ public class Queries {
             rs = stmt.executeQuery(sql);
 
             Double latitude = 0.0;
-            Double longtitude = 0.0;
+            Double longitude = 0.0;
 
             if(rs.next()){
                 latitude = rs.getDouble(9);
-                longtitude = rs.getDouble(10);
+                longitude = rs.getDouble(10);
             }else{
                 String compare[] = postal_code.split(" ");
-                String sql2 = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), latitude, longtitude FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND postal_code LIKE '" + compare[0] + "%'" + "GROUP BY A.LID, type, address, city, country, postal_code, amenities,latitude, longtitude";
+                String sql2 = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), latitude, longitude FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND postal_code LIKE '" + compare[0] + "%'" + "GROUP BY A.LID, type, address, city, country, postal_code, amenities,latitude, longitude";
 
                 Connection con2 = null;
                 ResultSet rs2 = null;
@@ -321,7 +321,7 @@ public class Queries {
 
                 if(rs2.next()){
                     latitude = rs2.getDouble(9);
-                    longtitude = rs2.getDouble(10);
+                    longitude = rs2.getDouble(10);
                 }else{
                     System.out.println("No listing found!");
                     return;
@@ -330,7 +330,7 @@ public class Queries {
 
             String query;
 
-            String get_distance = "(111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(L.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(L.longtitude - '" + longtitude + "'" + ")) + SIN(RADIANS(L.latitude)) * SIN(RADIANS('" +latitude + "'" + "))))))";
+            String get_distance = "(111.111 * DEGREES(ACOS(LEAST(1.0, COS(RADIANS(L.latitude)) * COS(RADIANS('" +latitude + "'" + ")) * COS(RADIANS(L.longitude - '" + longitude + "'" + ")) + SIN(RADIANS(L.latitude)) * SIN(RADIANS('" +latitude + "'" + "))))))";
 
             //rank by price
             if(RankByPrice.equals("Yes") && availability.equals("No") && amenities_filter.equals("No") && price_filter.equals("No")){
