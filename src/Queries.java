@@ -137,13 +137,13 @@ public class Queries {
             //availability + amenities
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + "amenities LIKE CONCAT('%', ('" + amenities + "'),  '%') AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + " AND '" + end_date + "' AND" + " amenities LIKE CONCAT('%', ('" + amenities + "'),  '%') AND" + get_distance + "< '" + distance + "'" + " GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
             
             //availability + price range
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("No") && price_filter.equals("Yes")){
 
-                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'AND A.price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'AND A.price BETWEEN '"+ lowest_price + "' AND '" + highest_price + "' AND" + get_distance + "< '" + distance + "'" + " GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
 
             //amenities + price range
@@ -186,7 +186,7 @@ public class Queries {
             //no filter and rank
             else{
 
-                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + "AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND " + get_distance + "< '" + distance + "'" + "GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY distance_in_km ASC";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + "AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND " + get_distance + "< '" + distance + "'" + " GROUP BY  A.LID, type, address, city, country, postal_code, amenities ORDER BY distance_in_km ASC";
             }
 
             System.out.println();
@@ -377,7 +377,7 @@ public class Queries {
             //availability + amenities
             else if(RankByPrice.equals("No") && availability.equals("Yes") && amenities_filter.equals("Yes") && price_filter.equals("No")){
 
-                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND" + "amenities LIKE CONCAT('%', ('" + amenities + "'),  '%') AND" + get_distance + "< 1.0 GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
+                query = "SELECT A.LID, type, address, city, country, postal_code, amenities, AVG(A.price), " + get_distance + " AS distance_in_km FROM Listings L JOIN Availability A WHERE L.LID = A.LID AND availability =  'available'  AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "' AND amenities LIKE CONCAT('%', ('" + amenities + "'),  '%') AND" + get_distance + "< 1.0 GROUP BY  A.LID, type, address, city, country, postal_code, amenities";
             }
             
             //availability + price range

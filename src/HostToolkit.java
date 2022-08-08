@@ -108,7 +108,7 @@ public class HostToolkit {
                 con0 = DriverManager.getConnection(CONNECTION,USER,PASS);
                 Statement stmt0 = con0.createStatement();
     
-                String sql = "CREATE TABLE AmenitiesTemp (amenities varchar(30));";
+                String sql = "CREATE TABLE AmenitiesTemp (amenities varchar(50));";
                 stmt0.executeUpdate(sql);
 
 
