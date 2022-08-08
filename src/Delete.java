@@ -92,14 +92,14 @@ public class Delete {
                 ps.execute();
 
 
-                String update = "UPDATE Availability SET availability = 'available' WHERE date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'";
+                String update = "UPDATE Availability SET availability = 'available' WHERE LID = " + LID + " AND date BETWEEN '" + start_date + "'" + "AND '" + end_date + "'";
 
                 Connection con3 = null;
                 con3 = DriverManager.getConnection(CONNECTION,USER,PASS);
                 Statement stmt2 = con3.createStatement();
                 stmt2.executeUpdate(update);
 
-                Cancellation mycancellation = new Cancellation(Booking_ID, LID, UserID, cancellation_date, start_date, end_date);
+                Cancellation mycancellation = new Cancellation(Booking_ID, LID, UserID, cancellation_date);
                 boolean result = mycancellation.recordCancellation();
 
                 System.out.println("Booking was successfully canceled!");
